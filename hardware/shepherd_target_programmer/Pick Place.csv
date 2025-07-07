@@ -1,0 +1,26 @@
+Altium Designer Pick and Place Locations
+C:\Users\hans\Documents\Altium\target_host_adapter\Project Outputs\Pick Place for target_adapt_usb.csv
+
+========================================================================================================================
+File Design Information:
+
+Date:       07/07/25
+Time:       18:16
+Revision:   Not in VersionControl
+Variant:    No variations
+Units used: mm
+
+"Designator","Comment","Layer","Footprint","Center-X(mm)","Center-Y(mm)","Rotation","Manufacturer PN","Value"
+"R8","R_1206_2R_0.25%","TopLayer","RESC3116X06_Shunt","32,7000","43,8000","0","RT1206CRD072RL","2R"
+"R7","R_0402_470R","TopLayer","RESC1005X04","30,8000","6,1000","0","ERJ-2RKF4700X","470R"
+"R6","R_0402_470R","TopLayer","RESC1005X04","30,8000","7,3000","0","ERJ-2RKF4700X","470R"
+"R5","R_0402_470R","TopLayer","RESC1005X04","30,8000","9,5000","0","ERJ-2RKF4700X","470R"
+"R4","R_0402_470R","TopLayer","RESC1005X04","30,8000","10,7000","0","ERJ-2RKF4700X","470R"
+"R3","R_0402_470R","TopLayer","RESC1005X04","4,3000","23,6000","0","ERJ-2RKF4700X","470R"
+"R2","R_0402_470R","TopLayer","RESC1005X04","4,3000","24,9000","0","ERJ-2RKF4700X","470R"
+"R1","R_0402_1k","TopLayer","RESC1005X04","2,7000","43,3000","180","ERJ-2GEJ102X","1k"
+"P3","P_HDR_2x2_2.54mm_header","TopLayer","P_Pinheader_2x2_R2.54mm","32,8300","39,1700","270","861400042YO2319LF",""
+"P2","P_RPI_PICO_40Pin","TopLayer","P_rpi_pico_R2.54mm","17,0900","26,7500","270","SC0915",""
+"P1","P_HSEC8-120-01-S-DV","TopLayer","P_HSEC8-120-01-S-DV","32,7700","22,5000","270","HSEC8-120-01-L-DV-A-K-TR",""
+"D1","D_LED_0603_Amber","TopLayer","DIOM1608X02N_Orange","2,7000","44,9000","0","150060AS75000","Amber"
+"C1","C_0402_1uF_10V_X7R","TopLayer","CAPC1005X06","35,4000","33,9000","0","GRM155C71A105KE11D","1uF"
