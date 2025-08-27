@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pre-commit = "*"
+pre-commit-uv = "*"
 # trafficbench
 trafficbench = {extras = ["all"], ref = "main", git = "git+https://github.com/nes-lab/TrafficBench.git", subdirectory = "py_package"}
 shepherd-core = {extras = ["elf"], version = "*"}
