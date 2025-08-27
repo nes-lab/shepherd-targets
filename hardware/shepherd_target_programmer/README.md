@@ -3,11 +3,11 @@
 This device allows powering Target-PCBs and programming both MCUs.
 It is based on the [Riotee-probe](https://www.riotee.nessie-circuits.de/docs/latest/hardware/probe.html).
 
-This directory contains: 
+This directory contains:
 
-- schematics, 
+- schematics,
 - designfiles,
-- BOM and 
+- BOM and
 - assembly drawings
 
 ## Supply Firmware
@@ -20,7 +20,7 @@ The window closes and the firmware gets flashed.
 ## Install ProbeSoftware
 
 To use the programmer, the Riotee platform provides a probe-software.
-You can install it via your prefered python package-manager.
+You can install it via your preferred python package-manager.
 Here pip is used:
 
 ```Shell

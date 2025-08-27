@@ -110,4 +110,4 @@ Received all 31 shared pins!!
 
 ## Source
 
-https://github.com/geissdoerfer/shepherd-nrf52-demo
+based on https://github.com/geissdoerfer/shepherd-nrf52-demo
