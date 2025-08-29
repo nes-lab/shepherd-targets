@@ -68,7 +68,7 @@
 	can be some	"less official" identifiers, but again they must be unique.
 
 	In case of a "standard" board connected to a custom environment (e.g. with application specific
-	GPIO connections) it is prefered to use the scheme <vendor>_<board>_<customization> with
+	GPIO connections) it is preferred to use the scheme <vendor>_<board>_<customization> with
 	<vendor> and <board> as above and <customization> identifying the application specific usage.
 	If there is a need to distinguish such customizations, there should also be a PURE variant
 	(i.e., <vendor>_<board>_PURE) that identifies the base board used in a stand-alone manner.
