@@ -28,7 +28,7 @@ jobs:
 
       - run: mkdir -p content
 
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           path: content/
 
