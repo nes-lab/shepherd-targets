@@ -38,7 +38,7 @@ CFLAGS += -g3 -O3
 CFLAGS += ${INCLUDES}
 CFLAGS += -DNRF52840_XXAA
 CFLAGS += -DARM_MATH_CM4
-CFLAGS += -Wall
+CFLAGS += -Wall -Wextra -Wpedantic
 CFLAGS += -fno-builtin
 CFLAGS += -mthumb
 CFLAGS += -mcpu=cortex-m4
