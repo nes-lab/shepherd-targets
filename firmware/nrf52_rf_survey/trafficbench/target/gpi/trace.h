@@ -143,9 +143,8 @@ _gpi_trace_filter_path_0(const char *s, size_t a, size_t b)
 
   // middle layer functions
   #define _GPI_TRACE_FILTER_PATH_x(x, y)                                                           \
-      static inline                                                                                \
-              __attribute__((always_inline, optimize("O3"))) size_t _gpi_trace_filter_path_##y(    \
-                      const char *s, size_t a, size_t b)                                           \
+      static inline __attribute__((always_inline, optimize("O3"))) size_t                          \
+      _gpi_trace_filter_path_##y(const char *s, size_t a, size_t b)                                \
       {                                                                                            \
           if (a == b) return ((s[a] == '/') || (s[a] == '\\')) ? a + 1 : 0;                        \
           size_t c = _gpi_trace_filter_path_##x(s, a + (b - a) / 2 + 1, b);                        \
@@ -333,7 +332,7 @@ _GPI_TRACE_FILTER_PATH_x(0, 1) _GPI_TRACE_FILTER_PATH_x(1, 2) _GPI_TRACE_FILTER_
       /* instantiate module control block */                                                       \
       static const Gpi_Trace_Module_Descriptor gpi_trace_module_desc = {                           \
               (config) /*#module,																\
-			__FILE__*/                                                 \
+			__FILE__*/                                                \
       };                                                                                           \
       /* add a flat version of config because GCC's constant propagation */                        \
       /* doesn't fully propagate const from struct in all cases */                                 \
@@ -594,7 +593,7 @@ _GPI_TRACE_FILTER_PATH_x(0, 1) _GPI_TRACE_FILTER_PATH_x(1, 2) _GPI_TRACE_FILTER_
           _Pragma("GCC diagnostic pop")                                                            \
                                                                                                    \
                   /* attention: if flush is requested, we have to do it before returning				\
-			 * (that is why we do it here and not outside of this macro) */      \
+			 * (that is why we do it here and not outside of this macro) */     \
                   if (flush) GPI_TRACE_FLUSH();                                                    \
                                                                                                    \
           return (typeof((void) 0, ##__VA_ARGS__)) r_;                                             \
