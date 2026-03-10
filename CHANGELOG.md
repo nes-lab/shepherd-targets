@@ -4,6 +4,7 @@
 
 - extend documentation
 - hardware - add more adapters (mostly for debug)
+- hardware - add target-programmer (clone of riotee-board) that can program both MCUs on the target 1.3e and has an interface for UART
 - change repo location and update references
 - move firmwares into `/firmware`-subdir
 - update deps and tooling
