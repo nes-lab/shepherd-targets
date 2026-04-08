@@ -422,11 +422,11 @@
 /// @sa NUM_ELEMENTS()
 //  internal: http://zubplot.blogspot.com/2015/01/gcc-is-wonderful-better-arraysize-macro.html
 //  helps to understand the type issues
-#define ARRAY_SIZE(a)                                                                              \
-    ((sizeof(a) /                                                                                  \
+#define ARRAY_SIZE(a)                                                                               \
+    ((sizeof(a) /                                                                                   \
       sizeof((a)[0])) + /* check if a is really the array (itself), not a pointer to the array;		\
 		 * otherwise the result would be wrong */ \
-     ASSERT_CT_EVAL(!__builtin_types_compatible_p(typeof(a), typeof(&(a)[0])),                     \
+     ASSERT_CT_EVAL(!__builtin_types_compatible_p(typeof(a), typeof(&(a)[0])),                      \
                     invalid_ARRAY_SIZE_usage))
 
 /// @copybrief ARRAY_SIZE().

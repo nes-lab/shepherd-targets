@@ -1,28 +1,43 @@
-# install:
-#  pip3 install pre-commit
-#  sudo apt install cppcheck build-essential
-# run:
-#  pre-commit run -a
-# update deps:
-#  pre-commit autoupdate
+# install       pip3 install prek
+# run           prek run -a  # or --all-files
+# update deps   prek autoupdate
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
-      - id: check-yaml
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
-      - id: check-executables-have-shebangs
-      - id: detect-private-key
-      - id: mixed-line-ending
-      - id: check-added-large-files
-      - id: check-case-conflict
+      - id: check-ast
+      - id: check-builtin-literals
       - id: check-docstring-first
-      - id: check-merge-conflict
-      - id: check-symlinks
-      - id: check-toml
+      - id: debug-statements
+      - id: forbid-new-submodules
+      - id: name-tests-test
+        args: ["--pytest-test-first"]
+      - id: requirements-txt-fixer
+
+  - repo: builtin # preks faster versions
+    hooks:
+      - id: trailing-whitespace
+      - id: check-added-large-files
+        args: ["--maxkb=500"]
+      - id: check-case-conflict
+      - id: check-illegal-windows-names
+      - id: end-of-file-fixer
       - id: fix-byte-order-marker
+      - id: check-json
+      - id: check-json5
+      - id: pretty-format-json
+        args: ["--autofix"]
+      - id: check-toml
+      - id: check-yaml
+      - id: check-xml
+      - id: mixed-line-ending
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      - id: check-merge-conflict
+      - id: detect-private-key
+      # - id: no-commit-to-branch
+      - id: check-executables-have-shebangs
 
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0
@@ -37,7 +52,7 @@ repos:
 
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.15.5'
+    rev: 'v0.15.9'
     hooks:
       - id: ruff-format
       - id: ruff-check
@@ -54,6 +69,12 @@ repos:
     hooks:
       - id: codespell
         exclude: \.(sch|brd|lbr)$
+
+  - repo: https://github.com/zizmorcore/zizmor-pre-commit
+    rev: v1.23.1
+    hooks:
+      - id: zizmor
+        args: ["--min-severity", "high", "--no-progress", "--fix", "."]
 
   - repo: https://github.com/pre-commit/mirrors-clang-format
     rev: 'v20.1.8'
