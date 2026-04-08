@@ -1,5 +1,12 @@
 # Changelog
 
+# v0.6.1 - unreleased
+
+- extend node-count for rf-survey (trafficbench)
+- switch from pipenv to uv / pip environments
+- switch from pre-commit to prek
+- audit GH workflows with zizmor
+
 # v0.6.0
 
 - extend documentation
