@@ -148,9 +148,9 @@ static inline void uart_init(uint32_t baudrate)
                            BV_BY_NAME(UARTE_PSEL_RXD_CONNECT, Connected);
 
     // set UART mode: 8 data bits, 1 stop bit, no parity
-    NRF_UARTE0->CONFIG   = BV_BY_NAME(UARTE_CONFIG_HWFC, Disabled) |
-                           BV_BY_NAME(UARTE_CONFIG_PARITY, Excluded) |
-                           BV_BY_NAME(UARTE_CONFIG_STOP, One);
+    NRF_UARTE0->CONFIG = BV_BY_NAME(UARTE_CONFIG_HWFC, Disabled) |
+                         BV_BY_NAME(UARTE_CONFIG_PARITY, Excluded) |
+                         BV_BY_NAME(UARTE_CONFIG_STOP, One);
 
     // set baudrate
     // Unfortunately, the documentation for the register value is very meager.
@@ -359,7 +359,7 @@ void gpi_platform_init()
             BV_BY_NAME(GPIO_PIN_CNF_DIR, Output) | BV_BY_NAME(GPIO_PIN_CNF_INPUT, Disconnect) |
             BV_BY_NAME(GPIO_PIN_CNF_PULL, Disabled) | BV_BY_NAME(GPIO_PIN_CNF_DRIVE, S0S1) |
             BV_BY_NAME(GPIO_PIN_CNF_SENSE, Disabled);
-    NRF_P0->OUTSET                 = BV(30);
+    NRF_P0->OUTSET             = BV(30);
 
     // Note: COM_PROG/SWCLK and COM_PROG2/SWDIO are used by the debug access port.
 
@@ -378,17 +378,17 @@ void gpi_platform_init()
 
     // stop HFXO (if running), implicitly switch HFCLK to HFINT
     //	if (NRF_CLOCK->HFCLKSTAT & CLOCK_HFCLKSTAT_STATE_Msk)
-    NRF_CLOCK->TASKS_HFCLKSTOP     = 1;
+    NRF_CLOCK->TASKS_HFCLKSTOP = 1;
 
     // stop LFXO (if running)
     //	if (NRF_CLOCK->LFCLKSTAT & CLOCK_LFCLKSTAT_STATE_Msk)
-    NRF_CLOCK->TASKS_LFCLKSTOP     = 1;
+    NRF_CLOCK->TASKS_LFCLKSTOP = 1;
 
     // init CLOCK module
-    NRF_CLOCK->INTENCLR            = -1u;
-    NRF_CLOCK->LFCLKSRC            = BV_BY_NAME(CLOCK_LFCLKSRC_SRC, RC) |
-                                     BV_BY_NAME(CLOCK_LFCLKSRC_BYPASS, Disabled) |
-                                     BV_BY_NAME(CLOCK_LFCLKSRC_EXTERNAL, Disabled);
+    NRF_CLOCK->INTENCLR        = -1u;
+    NRF_CLOCK->LFCLKSRC        = BV_BY_NAME(CLOCK_LFCLKSRC_SRC, RC) |
+                          BV_BY_NAME(CLOCK_LFCLKSRC_BYPASS, Disabled) |
+                          BV_BY_NAME(CLOCK_LFCLKSRC_EXTERNAL, Disabled);
     NRF_CLOCK->HFXODEBOUNCE        = BV_BY_VALUE(CLOCK_HFXODEBOUNCE_HFXODEBOUNCE, 0x40);
 
     // start HFXO

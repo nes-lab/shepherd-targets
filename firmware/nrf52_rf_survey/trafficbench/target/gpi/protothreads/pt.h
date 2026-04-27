@@ -162,16 +162,15 @@ struct pt
  * \hideinitializer
  */
   #define PT_WAIT_UNTIL(pt, condition)                                                             \
-        do                                                                                         \
-        {                                                                                          \
+        do {                                                                                       \
             LC_SET((pt)->lc);                                                                      \
             if (!(condition))                                                                      \
             {                                                                                      \
                 GPI_TRACE_MSG(GPI_TRACE_LOG_FUNCTION_RETURN, "PT_WAIT ...");                       \
                 return PT_WAITING;                                                                 \
-            /*      GPI_TRACE_RETURN_MSG(PT_WAITING, "PT_WAIT");		\
+/*      GPI_TRACE_RETURN_MSG(PT_WAITING, "PT_WAIT");		\
       GPI_TRACE_RETURN_MSG(PT_WAITING, "PT_WAIT until (" #condition ")");	\
-*/    }                               \
+*/    }                                                                                            \
         }                                                                                          \
         while (0)
 
@@ -226,8 +225,7 @@ struct pt
  * \hideinitializer
  */
   #define PT_SPAWN(pt, child, thread)                                                              \
-        do                                                                                         \
-        {                                                                                          \
+        do {                                                                                       \
             PT_INIT((child));                                                                      \
             PT_WAIT_THREAD((pt), (thread));                                                        \
         }                                                                                          \
@@ -251,8 +249,7 @@ struct pt
  * \hideinitializer
  */
   #define PT_RESTART(pt)                                                                           \
-        do                                                                                         \
-        {                                                                                          \
+        do {                                                                                       \
             PT_INIT(pt);                                                                           \
             GPI_TRACE_MSG(GPI_TRACE_LOG_FUNCTION_RETURN, "PT_RESTART");                            \
             return PT_WAITING;                                                                     \
@@ -271,8 +268,7 @@ struct pt
  * \hideinitializer
  */
   #define PT_EXIT(pt)                                                                              \
-        do                                                                                         \
-        {                                                                                          \
+        do {                                                                                       \
             PT_INIT(pt);                                                                           \
             GPI_TRACE_MSG(GPI_TRACE_LOG_FUNCTION_RETURN, "PT_EXIT");                               \
             return PT_EXITED;                                                                      \
@@ -341,8 +337,7 @@ struct pt
  * \hideinitializer
  */
   #define PT_YIELD(pt)                                                                             \
-        do                                                                                         \
-        {                                                                                          \
+        do {                                                                                       \
             PT_YIELD_FLAG = 0;                                                                     \
             LC_SET((pt)->lc);                                                                      \
             if (PT_YIELD_FLAG == 0)                                                                \
@@ -365,8 +360,7 @@ struct pt
  * \hideinitializer
  */
   #define PT_YIELD_UNTIL(pt, cond)                                                                 \
-        do                                                                                         \
-        {                                                                                          \
+        do {                                                                                       \
             PT_YIELD_FLAG = 0;                                                                     \
             LC_SET((pt)->lc);                                                                      \
             if ((PT_YIELD_FLAG == 0) || !(cond))                                                   \

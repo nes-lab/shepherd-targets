@@ -274,7 +274,9 @@ static inline uint32_t period_local_to_global(uint32_t delay)
 //**************************************************************************************************
 
 static inline uint32_t tick_global_to_local(uint32_t global)
-{ return tick_ref.local + period_global_to_local(global - tick_ref.global); }
+{
+    return tick_ref.local + period_global_to_local(global - tick_ref.global);
+}
 /*
 static uint32_t tick_global_to_local(uint32_t global)
 {
@@ -958,8 +960,7 @@ static PT_THREAD(receive(TRX_Group *trx_group, uint_fast8_t dry_run, uint32_t *e
     q->timestamp_ref_deviation = q->timestamp_ref - start_tick_local;
 
     // process rx data
-    do
-    {
+    do {
         Radio_Packet    *p = &(q->packet);
         uint_fast16_t    cpm_pos, cp_pos;
         Checkpoint_Data *cp = NULL;
@@ -1432,10 +1433,7 @@ PT_THREAD(execution_thread())
                     PT_SPAWN(pt, pt_trx, transmit(pTRX, k, 0, &execution_time));
                     program_state.pc -= trx_group.tx[my_node_id].instruction_index;
                 }
-                else
-                {
-                    PT_SPAWN(pt, pt_trx, receive(&trx_group, 0, &execution_time));
-                }
+                else { PT_SPAWN(pt, pt_trx, receive(&trx_group, 0, &execution_time)); }
 
                 // if parent (clock master) disappeared: go out of sync
                 // NOTE: this can also be detected in transmit(), so check this always

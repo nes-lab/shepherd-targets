@@ -234,7 +234,7 @@ GPI_RESOURCE_RESERVE(NRF_PPI_CH, PPI_DEBUG2);
 #define CCR_MAIN_RSSI            (MAIN_TIMER->CC[CCI_MAIN_RSSI])
 //#define CCR_MAIN_PAYLOAD			(MAIN_TIMER->CC[CCI_MAIN_PAYLOAD])
 
-#define INTEN_MAIN_COMPARE BV_BY_NAME_PREEXP(CONCAT(TIMER_INTENSET_COMPARE, CCI_MAIN_COMPARE), Set)
+#define INTEN_MAIN_COMPARE       BV_BY_NAME_PREEXP(CONCAT(TIMER_INTENSET_COMPARE, CCI_MAIN_COMPARE), Set)
 
 GPI_RESOURCE_RESERVE(NRF_TIMER_CC, MAIN_TIMER_INDEX, CCI_MAIN_COMPARE);
 GPI_RESOURCE_RESERVE(NRF_TIMER_CC, MAIN_TIMER_INDEX, CCI_MAIN_START_READY_END);
@@ -607,15 +607,15 @@ void LED_ISR(RADIO_IRQHandler, LED_RADIO_ISR)
 
         Rx_Queue_Entry *q    = &rx_queue[rx_queue_num_written_radio % NUM_ELEMENTS(rx_queue)];
         Rssi_Buffer    *rssi = (Rssi_Buffer *) &rssi_space[q->rssi_space_num_written_begin %
-                                                           NUM_ELEMENTS(rssi_space)];
+                                                        NUM_ELEMENTS(rssi_space)];
 
         // arm delay timer (continue RSSI sampling for post-trigger time)
         {
             // 2 * PPI_DELAY: END -> CAPTURE, COMPARE -> DISABLE
-            uint32_t      stop_time = CCR_MAIN_START_READY_END - (2 * PPI_DELAY) -
-                                      RADIO_RX_EVENT_END_DELAY + rssi->posttrigger_time;
+            uint32_t stop_time = CCR_MAIN_START_READY_END - (2 * PPI_DELAY) -
+                                 RADIO_RX_EVENT_END_DELAY + rssi->posttrigger_time;
 
-            uint_fast32_t timeout   = MAIN_TIMER->INTENSET & INTEN_MAIN_COMPARE;
+            uint_fast32_t timeout = MAIN_TIMER->INTENSET & INTEN_MAIN_COMPARE;
 
             // if timeout enabled: restrict stop_time to timeout
             // (-> don't touch timeout timer if stop_time would exceed timeout)
@@ -741,7 +741,7 @@ void LED_ISR(MAIN_TIMER_ISR_NAME, LED_MAIN_TIMER_ISR)
         uint32_t        nw        = rx_queue_num_written_radio;
         Rx_Queue_Entry *q         = &rx_queue[nw % NUM_ELEMENTS(rx_queue)];
         Rssi_Buffer    *rssi      = (Rssi_Buffer *) &rssi_space[q->rssi_space_num_written_begin %
-                                                                NUM_ELEMENTS(rssi_space)];
+                                                        NUM_ELEMENTS(rssi_space)];
 
         q->packet.crc             = NRF_RADIO->RXCRC;
         q->packet.header_detected = NRF_RADIO->EVENTS_ADDRESS;
@@ -922,8 +922,8 @@ void radio_init()
                         BV_BY_NAME(RADIO_SHORTS_ADDRESS_BCSTART, Enabled);
 
     // set MAXLEN to avoid buffer overruns
-    NRF_RADIO->PCNF1  = (NRF_RADIO->PCNF1 & ~RADIO_PCNF1_MAXLEN_Msk) |
-                        BV_BY_VALUE(RADIO_PCNF1_MAXLEN, sizeof_field(Radio_Packet, raw_payload));
+    NRF_RADIO->PCNF1 = (NRF_RADIO->PCNF1 & ~RADIO_PCNF1_MAXLEN_Msk) |
+                       BV_BY_VALUE(RADIO_PCNF1_MAXLEN, sizeof_field(Radio_Packet, raw_payload));
 
 
     // configure RSSI sample clock
@@ -933,7 +933,7 @@ void radio_init()
     // and have this value for > 0 PCLK cycles, or does it flip from CC - 1 to 0). We conducted a
     // small experiment (routing the COMPARE event via PPI to a GPIO pin and measuring the frequency)
     // and found that the shortcut takes effect without delay (i.e. count sequence = CC-2, CC-1, 0, ...).
-    RSSI_TIMER->MODE  = BV_BY_NAME(TIMER_MODE_MODE, Timer);
+    RSSI_TIMER->MODE        = BV_BY_NAME(TIMER_MODE_MODE, Timer);
     RSSI_TIMER->PRESCALER   = BV_BY_VALUE(TIMER_PRESCALER_PRESCALER, 0); // 16MHz
     RSSI_TIMER->BITMODE     = BV_BY_NAME(TIMER_BITMODE_BITMODE, 16Bit);
     RSSI_TIMER->TASKS_CLEAR = 1;
@@ -945,8 +945,8 @@ void radio_init()
     RSSI_TIMER->CC[0] = RSSI_SAMPLING_PERIOD - 0; // triggers RSSISTART
 #endif
     //RSSI_TIMER->CC[2]		= -1u;		// -> radio_start_rx()
-    RSSI_TIMER->SHORTS     = BV_BY_NAME(TIMER_SHORTS_COMPARE1_CLEAR, Enabled) |
-                             BV_BY_NAME(TIMER_SHORTS_COMPARE2_STOP, Enabled);
+    RSSI_TIMER->SHORTS = BV_BY_NAME(TIMER_SHORTS_COMPARE1_CLEAR, Enabled) |
+                         BV_BY_NAME(TIMER_SHORTS_COMPARE2_STOP, Enabled);
 
     // configure RSSI ISR monitoring
     RSSI_TIMER2->MODE      = BV_BY_NAME(TIMER_MODE_MODE, Timer);
@@ -1336,12 +1336,12 @@ Gpi_Fast_Tick_Native radio_start_tx(Gpi_Fast_Tick_Native start_tick,
     tx_ack.packet = packet;
     tx_ack.done   = 0;
 
-    air_time = (packet->is_tx_no_packet)
-                       ? 0
-                       : radio_get_packet_airtime(gpi_radio_get_mode(), packet->raw_payload_length);
+    air_time      = (packet->is_tx_no_packet)
+                            ? 0
+                            : radio_get_packet_airtime(gpi_radio_get_mode(), packet->raw_payload_length);
 
     // catch potential timer overruns
-    x        = carrier_period_1 + carrier_period_2;
+    x             = carrier_period_1 + carrier_period_2;
     assert((x >= carrier_period_1) && (x < (-10000u - air_time)));
 
     // if there is no frame to send
@@ -1444,7 +1444,7 @@ Gpi_Fast_Tick_Native radio_start_tx(Gpi_Fast_Tick_Native start_tick,
     //NRF_RADIO->EVENTS_END			= 0;
     NRF_RADIO->EVENTS_DISABLED = 0;
     NRF_RADIO->INTENSET        = BV_BY_VALUE(RADIO_INTENSET_READY, 1) | // used to disable PPI_START
-                                 BV_BY_VALUE(RADIO_INTENSET_DISABLED, 1);
+                          BV_BY_VALUE(RADIO_INTENSET_DISABLED, 1);
 
     REORDER_BARRIER();
 

@@ -113,7 +113,9 @@ static ALWAYS_INLINE uint8_t  gpi_slu_8(uint8_t x, unsigned int s) { return x <<
 //*************************************************************************************************
 
 static ALWAYS_INLINE uint32_t gpi_mulu_16x16(uint16_t a, uint16_t b)
-{ return (uint32_t) a * (uint32_t) b; }
+{
+    return (uint32_t) a * (uint32_t) b;
+}
 
 //*************************************************************************************************
 
@@ -146,7 +148,9 @@ static ALWAYS_INLINE uint64_t gpi_mulu_32x32to64(uint32_t a, uint32_t b)
 //**************************************************************************************************
 
 static ALWAYS_INLINE uint64_t gpi_mulu_32x16to64(uint32_t a, uint16_t b)
-{ return gpi_mulu_32x32to64(a, b); }
+{
+    return gpi_mulu_32x32to64(a, b);
+}
 
 //**************************************************************************************************
 
@@ -194,7 +198,9 @@ static ALWAYS_INLINE int_fast8_t gpi_get_lsb_32_core(uint32_t x, const int test_
 //**************************************************************************************************
 
 static ALWAYS_INLINE int_fast8_t gpi_get_lsb_32(uint32_t x)
-{ return gpi_get_lsb_32_core(x, 1, -1); }
+{
+    return gpi_get_lsb_32_core(x, 1, -1);
+}
 
 //**************************************************************************************************
 
@@ -256,10 +262,14 @@ static ALWAYS_INLINE int_fast8_t gpi_get_msb_64(uint64_t x)
 static ALWAYS_INLINE uint_fast8_t gpi_popcnt_8(uint8_t x) { return gpi_popcnt_lut[x]; }
 
 static ALWAYS_INLINE uint_fast8_t gpi_popcnt_16(uint16_t x)
-{ return gpi_popcnt_8(x & 0xFF) + gpi_popcnt_8(x >> 8); }
+{
+    return gpi_popcnt_8(x & 0xFF) + gpi_popcnt_8(x >> 8);
+}
 
 static ALWAYS_INLINE uint_fast8_t gpi_popcnt_32(uint32_t x)
-{ return gpi_popcnt_16(x & 0xFFFF) + gpi_popcnt_16(x >> 16); }
+{
+    return gpi_popcnt_16(x & 0xFFFF) + gpi_popcnt_16(x >> 16);
+}
 
 _GPI_SIZE_DISPATCHER_FUNCTION_1_32(gpi_popcnt, uint_fast8_t)
 

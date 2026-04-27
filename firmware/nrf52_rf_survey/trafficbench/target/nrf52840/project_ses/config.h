@@ -2,38 +2,38 @@
 //**************************************************************************************************
 
 // helper macros
-#define BUILD_CONFIG_Release_FlockLab 1
-#define BUILD_CONFIG_IS(x)            (BUILD_CONFIG == BUILD_CONFIG_##x)
+#define BUILD_CONFIG_Release_FlockLab             1
+#define BUILD_CONFIG_IS(x)                        (BUILD_CONFIG == BUILD_CONFIG_##x)
 
 //**************************************************************************************************
 // GPI configuration
 
-#define GPI_ARCH_PLATFORM (GPI_ARCH_BOARD_TUDNES_SHEPHERD_NRF52840FRAM_V13 | GPI_ARCH_CRT_SEGGER2)
-#define GPI_STDOUT_UART_BAUDRATE                 115200
-#define GPI_ARM_NRF_STDOUT_UART_FLOWCONTROL_MODE 0
+#define GPI_ARCH_PLATFORM                         (GPI_ARCH_BOARD_TUDNES_SHEPHERD_NRF52840FRAM_V13 | GPI_ARCH_CRT_SEGGER2)
+#define GPI_STDOUT_UART_BAUDRATE                  115200
+#define GPI_ARM_NRF_STDOUT_UART_FLOWCONTROL_MODE  0
 // 3: flow ctrl on, 0: off
 // ATTENTION: 460800 is not totally safe even with flow control
 // (I guess that the DK's interface MCU deactivates CTS too late
 // (not enough buffer space left for data transmitted in between))
 
-#define GPI_ARM_INTLOCK_PRIORITY                 1
-#define GPI_ARM_NRF_FAST_CLOCK_TIMER             4
+#define GPI_ARM_INTLOCK_PRIORITY                  1
+#define GPI_ARM_NRF_FAST_CLOCK_TIMER              4
 
 // enable asynchronous stdout with interrupt-driven UART routines
 // This increases performance because preparation of (next) transmit data gets parallelized with
 // (currently) running UART transmission.
-#define GPI_STDOUT_INTERRUPT_ENABLED             1
-#define GPI_ARM_NRF_STDIO_INTERRUPT_PRIORITY     4
-#define GPI_ARM_NRF_STDOUT_BUFFER_NUM_SLOTS      32
-#define GPI_ARM_NRF_STDOUT_BUFFER_SLOT_SIZE      16
+#define GPI_STDOUT_INTERRUPT_ENABLED              1
+#define GPI_ARM_NRF_STDIO_INTERRUPT_PRIORITY      4
+#define GPI_ARM_NRF_STDOUT_BUFFER_NUM_SLOTS       32
+#define GPI_ARM_NRF_STDOUT_BUFFER_SLOT_SIZE       16
 
 // use GPI_TRACE without automatic flushing (i.e. flush manually)
 // This is needed because the standard flush routine does not support nested calls,
 // which is critical when using preemptive multithreading (as we do). The simple solution
 // is to perform flushing in the scheduler's idle loop.
 // We use a relatively large trace buffer size to avoid losing messages in high-load situations.
-#define GPI_TRACE_MODE               (GPI_TRACE_MODE_TRACE | GPI_TRACE_MODE_FLUSH_NOAUTO)
-#define GPI_TRACE_BUFFER_NUM_ENTRIES 512 //128	// 64 bytes each (GPI_TRACE_BUFFER_ENTRY_SIZE)
+#define GPI_TRACE_MODE                            (GPI_TRACE_MODE_TRACE | GPI_TRACE_MODE_FLUSH_NOAUTO)
+#define GPI_TRACE_BUFFER_NUM_ENTRIES              512 //128	// 64 bytes each (GPI_TRACE_BUFFER_ENTRY_SIZE)
 
 // limit GPI_TRACE_FLUSH_MAX_ENTRIES_PER_CALL and consequently the runtime of GPI_TRACE_FLUSH()
 // (see GPI_TRACE_FLUSH_MAX_ENTRIES_PER_CALL for details)

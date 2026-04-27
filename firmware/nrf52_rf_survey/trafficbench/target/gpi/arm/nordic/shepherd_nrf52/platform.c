@@ -137,8 +137,8 @@ void gpi_platform_init()
     NRF_POWER->INTENCLR = -1u;
     NRF_POWER->POFCON   = BV_BY_NAME(POWER_POFCON_POF, Disabled);
     NRF_POWER->DCDCEN   = BV_BY_NAME(POWER_DCDCEN_DCDCEN, Disabled); // set REG1 to LDO mode
-    NRF_POWER->DCDCEN0 = BV_BY_NAME(POWER_DCDCEN0_DCDCEN,
-                                    Disabled); // set REG0 to LDO mode (don't care because bypassed)
+    NRF_POWER->DCDCEN0  = BV_BY_NAME(POWER_DCDCEN0_DCDCEN,
+                                     Disabled); // set REG0 to LDO mode (don't care because bypassed)
     for (i = 0; i <= 8; ++i)
         NRF_POWER->RAM[i].POWER =
                 0x0000FFFF; // all RAM sections enabled, no retention during System OFF
@@ -390,12 +390,12 @@ void gpi_platform_init()
     // P1.13:			LED.0
     // set drive mode = wired-or to avoid conflicts with MSP430
     // ATTENTION: we expect that MSP430 does the same (doesn't use push/pull)
-    NRF_P1->OUTCLR                 = BV(13);
-    NRF_P1->PIN_CNF[13]            = BV_BY_NAME(GPIO_PIN_CNF_DIR, Output) |
-                                     BV_BY_NAME(GPIO_PIN_CNF_INPUT, Disconnect) |
-                                     BV_BY_NAME(GPIO_PIN_CNF_PULL, Disabled) |
-                                     BV_BY_NAME(GPIO_PIN_CNF_DRIVE, D0S1) | // wired-or
-                                     BV_BY_NAME(GPIO_PIN_CNF_SENSE, Disabled);
+    NRF_P1->OUTCLR      = BV(13);
+    NRF_P1->PIN_CNF[13] = BV_BY_NAME(GPIO_PIN_CNF_DIR, Output) |
+                          BV_BY_NAME(GPIO_PIN_CNF_INPUT, Disconnect) |
+                          BV_BY_NAME(GPIO_PIN_CNF_PULL, Disabled) |
+                          BV_BY_NAME(GPIO_PIN_CNF_DRIVE, D0S1) | // wired-or
+                          BV_BY_NAME(GPIO_PIN_CNF_SENSE, Disabled);
 
     // P1.14:			n.c.
     // P1.15:			n.c.
@@ -416,17 +416,17 @@ void gpi_platform_init()
 
     // stop HFXO (if running), implicitly switch HFCLK to HFINT
     //	if (NRF_CLOCK->HFCLKSTAT & CLOCK_HFCLKSTAT_STATE_Msk)
-    NRF_CLOCK->TASKS_HFCLKSTOP     = 1;
+    NRF_CLOCK->TASKS_HFCLKSTOP = 1;
 
     // stop LFXO (if running)
     //	if (NRF_CLOCK->LFCLKSTAT & CLOCK_LFCLKSTAT_STATE_Msk)
-    NRF_CLOCK->TASKS_LFCLKSTOP     = 1;
+    NRF_CLOCK->TASKS_LFCLKSTOP = 1;
 
     // init CLOCK module
-    NRF_CLOCK->INTENCLR            = -1u;
-    NRF_CLOCK->LFCLKSRC            = BV_BY_NAME(CLOCK_LFCLKSRC_SRC, Xtal) |
-                                     BV_BY_NAME(CLOCK_LFCLKSRC_BYPASS, Disabled) |
-                                     BV_BY_NAME(CLOCK_LFCLKSRC_EXTERNAL, Disabled);
+    NRF_CLOCK->INTENCLR        = -1u;
+    NRF_CLOCK->LFCLKSRC        = BV_BY_NAME(CLOCK_LFCLKSRC_SRC, Xtal) |
+                          BV_BY_NAME(CLOCK_LFCLKSRC_BYPASS, Disabled) |
+                          BV_BY_NAME(CLOCK_LFCLKSRC_EXTERNAL, Disabled);
     NRF_CLOCK->HFXODEBOUNCE        = BV_BY_VALUE(CLOCK_HFXODEBOUNCE_HFXODEBOUNCE, 0x40);
 
     // start HFXO

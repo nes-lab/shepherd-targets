@@ -272,7 +272,9 @@ static ALWAYS_INLINE void gpi_atomic_and(volatile unsigned int *p, unsigned int 
 //**************************************************************************************************
 
 static ALWAYS_INLINE void gpi_atomic_set(volatile unsigned int *p, unsigned int mask)
-{ gpi_atomic_or(p, mask); }
+{
+    gpi_atomic_or(p, mask);
+}
 
 //**************************************************************************************************
 
@@ -321,8 +323,7 @@ static ALWAYS_INLINE void gpi_atomic_write_32(volatile uint32_t *p, uint32_t dat
 //**************************************************************************************************
 
 #define gpi_atomic_write(p, data)                                                                  \
-    do                                                                                             \
-    {                                                                                              \
+    do {                                                                                           \
         ASSERT_CT(sizeof(*(p)) <= 4, gpi_atomic_write_size_overflow);                              \
         switch (sizeof(*(p)))                                                                      \
         {                                                                                          \

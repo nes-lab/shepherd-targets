@@ -92,21 +92,31 @@ extern "C" {
 //***** Implementations of Inline Functions ********************************************************
 
 static ALWAYS_INLINE void gpi_memcpy_8(void *dest, const void *src, size_t size)
-{ __builtin_memcpy(dest, src, size); }
+{
+    __builtin_memcpy(dest, src, size);
+}
 
 static ALWAYS_INLINE void gpi_memcpy_dma_aligned(void *dest, const void *src, size_t size)
-{ __builtin_memcpy(dest, src, size); }
+{
+    __builtin_memcpy(dest, src, size);
+}
 
 static ALWAYS_INLINE void gpi_memcpy_dma(void *dest, const void *src, size_t size)
-{ __builtin_memcpy(dest, src, size); }
+{
+    __builtin_memcpy(dest, src, size);
+}
 
 static ALWAYS_INLINE void gpi_memcpy_dma_inline(void *dest, const void *src, size_t size)
-{ __builtin_memcpy(dest, src, size); }
+{
+    __builtin_memcpy(dest, src, size);
+}
 
 //**************************************************************************************************
 
 static ALWAYS_INLINE void gpi_memmove_dma_inline(void *dest, const void *src, size_t size)
-{ __builtin_memmove(dest, src, size); }
+{
+    __builtin_memmove(dest, src, size);
+}
 
 //**************************************************************************************************
 //**************************************************************************************************

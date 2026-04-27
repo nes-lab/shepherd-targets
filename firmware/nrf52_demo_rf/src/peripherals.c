@@ -168,13 +168,13 @@ __RAMFUNC void RTC0_IRQHandler(void)
 
 int adc_init(float v_thr)
 {
-    NRF_SAADC->CH[0].CONFIG  = (SAADC_CH_CONFIG_RESN_Bypass << SAADC_CH_CONFIG_RESN_Pos) |
-                               (SAADC_CH_CONFIG_RESP_Bypass << SAADC_CH_CONFIG_RESP_Pos) |
-                               (SAADC_CH_CONFIG_GAIN_Gain1_6 << SAADC_CH_CONFIG_GAIN_Pos) |
-                               (SAADC_CH_CONFIG_REFSEL_Internal << SAADC_CH_CONFIG_REFSEL_Pos) |
-                               (SAADC_CH_CONFIG_TACQ_3us << SAADC_CH_CONFIG_TACQ_Pos) |
-                               (SAADC_CH_CONFIG_MODE_SE << SAADC_CH_CONFIG_MODE_Pos) |
-                               (SAADC_CH_CONFIG_BURST_Enabled << SAADC_CH_CONFIG_BURST_Pos);
+    NRF_SAADC->CH[0].CONFIG = (SAADC_CH_CONFIG_RESN_Bypass << SAADC_CH_CONFIG_RESN_Pos) |
+                              (SAADC_CH_CONFIG_RESP_Bypass << SAADC_CH_CONFIG_RESP_Pos) |
+                              (SAADC_CH_CONFIG_GAIN_Gain1_6 << SAADC_CH_CONFIG_GAIN_Pos) |
+                              (SAADC_CH_CONFIG_REFSEL_Internal << SAADC_CH_CONFIG_REFSEL_Pos) |
+                              (SAADC_CH_CONFIG_TACQ_3us << SAADC_CH_CONFIG_TACQ_Pos) |
+                              (SAADC_CH_CONFIG_MODE_SE << SAADC_CH_CONFIG_MODE_Pos) |
+                              (SAADC_CH_CONFIG_BURST_Enabled << SAADC_CH_CONFIG_BURST_Pos);
 
     NRF_SAADC->CH[0].PSELP   = SAADC_CH_PSELP_PSELP_VDD;
 
@@ -202,9 +202,9 @@ int adc_init(float v_thr)
     NRF_PPI->CHENSET         = PPI_CHENSET_CH3_Msk;
 
     NRF_SAADC->CH[0].LIMIT   = ((int16_t) (v_thr * G_ADC / V_REF * (float) (1 << ADC_BITS)))
-                               << SAADC_CH_LIMIT_HIGH_Pos;
+                             << SAADC_CH_LIMIT_HIGH_Pos;
 
-    NRF_SAADC->INTENSET      = SAADC_INTENSET_CH0LIMITH_Msk;
+    NRF_SAADC->INTENSET = SAADC_INTENSET_CH0LIMITH_Msk;
     NVIC_EnableIRQ(SAADC_IRQn);
 
     rtc_init();

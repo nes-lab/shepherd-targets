@@ -234,7 +234,9 @@ static ALWAYS_INLINE Gpi_Hybrid_Reference gpi_tick_hybrid_reference(void)
 //**************************************************************************************************
 
 static ALWAYS_INLINE Gpi_Hybrid_Tick gpi_tick_hybrid(void)
-{ return gpi_tick_fast_to_hybrid(gpi_tick_fast_native()); }
+{
+    return gpi_tick_fast_to_hybrid(gpi_tick_fast_native());
+}
 
 //**************************************************************************************************
 

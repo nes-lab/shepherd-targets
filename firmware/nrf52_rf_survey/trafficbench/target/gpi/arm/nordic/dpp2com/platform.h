@@ -65,10 +65,10 @@
 //***** Global (Public) Defines and Consts *********************************************************
 
 // ATTENTION: x is evaluated twice, so take care with side effects
-#define GPI_LED(x)   (((uint_fast8_t) (x) - 1) < 1 ? (BV(25) << ((uint_fast8_t) (x) - 1)) : 0)
+#define GPI_LED(x)                          (((uint_fast8_t) (x) - 1) < 1 ? (BV(25) << ((uint_fast8_t) (x) - 1)) : 0)
 
-#define GPI_LED_NONE 0
-#define GPI_LED_1    GPI_LED(1)
+#define GPI_LED_NONE                        0
+#define GPI_LED_1                           GPI_LED(1)
 
 //**************************************************************************************************
 //***** Local (Private) Defines and Consts *********************************************************

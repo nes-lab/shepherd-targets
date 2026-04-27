@@ -29,14 +29,12 @@ struct pt
 };
   #define pt_init() {.isset = 0, .status = 0}
   #define pt_begin(pt)                                                                             \
-      do                                                                                           \
-      {                                                                                            \
+      do {                                                                                         \
           if ((pt)->isset) { longjmp((pt)->env, 0); }                                              \
       }                                                                                            \
       while (0)
   #define pt_label(pt, stat)                                                                       \
-      do                                                                                           \
-      {                                                                                            \
+      do {                                                                                         \
           (pt)->isset  = 1;                                                                        \
           (pt)->status = (stat);                                                                   \
           setjmp((pt)->env);                                                                       \
@@ -57,15 +55,13 @@ struct pt
 };
   #define pt_init() {.label = NULL, .status = 0}
   #define pt_begin(pt)                                                                             \
-      do                                                                                           \
-      {                                                                                            \
+      do {                                                                                         \
           if ((pt)->label != NULL) { goto *(pt)->label; }                                          \
       }                                                                                            \
       while (0)
 
   #define pt_label(pt, stat)                                                                       \
-      do                                                                                           \
-      {                                                                                            \
+      do {                                                                                         \
           (pt)->status                  = (stat);                                                  \
           _pt_line(label) : (pt)->label = &&_pt_line(label);                                       \
       }                                                                                            \
@@ -90,8 +86,7 @@ struct pt
       {                                                                                            \
           case 0:
   #define pt_label(pt, stat)                                                                       \
-      do                                                                                           \
-      {                                                                                            \
+      do {                                                                                         \
           (pt)->label  = __LINE__;                                                                 \
           (pt)->status = (stat);                                                                   \
           case __LINE__:;                                                                          \
@@ -108,16 +103,14 @@ struct pt
 #define pt_status(pt) (pt)->status
 
 #define pt_wait(pt, cond)                                                                          \
-    do                                                                                             \
-    {                                                                                              \
+    do {                                                                                           \
         pt_label(pt, PT_STATUS_BLOCKED);                                                           \
         if (!(cond)) { return; }                                                                   \
     }                                                                                              \
     while (0)
 
 #define pt_yield(pt)                                                                               \
-    do                                                                                             \
-    {                                                                                              \
+    do {                                                                                           \
         pt_label(pt, PT_STATUS_YIELDED);                                                           \
         if (pt_status(pt) == PT_STATUS_YIELDED)                                                    \
         {                                                                                          \
@@ -128,8 +121,7 @@ struct pt
     while (0)
 
 #define pt_exit(pt, stat)                                                                          \
-    do                                                                                             \
-    {                                                                                              \
+    do {                                                                                           \
         pt_label(pt, stat);                                                                        \
         return;                                                                                    \
     }                                                                                              \

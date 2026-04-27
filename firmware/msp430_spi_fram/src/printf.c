@@ -253,8 +253,7 @@ static size_t _ntoa_long(out_fct_type out, char *buffer, size_t idx, size_t maxl
     // write if precision != 0 and value is != 0
     if (!(flags & FLAGS_PRECISION) || value)
     {
-        do
-        {
+        do {
             const char digit = (char) (value % base);
             buf[len++] =
                     digit < 10 ? '0' + digit : (flags & FLAGS_UPPERCASE ? 'A' : 'a') + digit - 10;
@@ -283,8 +282,7 @@ static size_t _ntoa_long_long(out_fct_type out, char *buffer, size_t idx, size_t
     // write if precision != 0 and value is != 0
     if (!(flags & FLAGS_PRECISION) || value)
     {
-        do
-        {
+        do {
             const char digit = (char) (value % base);
             buf[len++] =
                     digit < 10 ? '0' + digit : (flags & FLAGS_UPPERCASE ? 'A' : 'a') + digit - 10;
@@ -472,8 +470,7 @@ static int _vsnprintf(out_fct_type out, char *buffer, const size_t maxlen, const
 
         // evaluate flags
         flags = 0U;
-        do
-        {
+        do {
             switch (*format)
             {
                 case '0':
@@ -517,10 +514,7 @@ static int _vsnprintf(out_fct_type out, char *buffer, const size_t maxlen, const
                 flags |= FLAGS_LEFT; // reverse padding
                 width = (unsigned int) -w;
             }
-            else
-            {
-                width = (unsigned int) w;
-            }
+            else { width = (unsigned int) w; }
             format++;
         }
 
@@ -615,26 +609,26 @@ static int _vsnprintf(out_fct_type out, char *buffer, const size_t maxlen, const
                     {
 #if defined(PRINTF_SUPPORT_LONG_LONG)
                         const long long value = va_arg(va, long long);
-                        idx = _ntoa_long_long(out, buffer, idx, maxlen,
-                                              (unsigned long long) (value > 0 ? value : 0 - value),
-                                              value < 0, base, precision, width, flags);
+                        idx                   = _ntoa_long_long(out, buffer, idx, maxlen,
+                                                                (unsigned long long) (value > 0 ? value : 0 - value),
+                                                                value < 0, base, precision, width, flags);
 #endif
                     }
                     else if (flags & FLAGS_LONG)
                     {
                         const long value = va_arg(va, long);
-                        idx = _ntoa_long(out, buffer, idx, maxlen,
-                                         (unsigned long) (value > 0 ? value : 0 - value), value < 0,
-                                         base, precision, width, flags);
+                        idx              = _ntoa_long(out, buffer, idx, maxlen,
+                                                      (unsigned long) (value > 0 ? value : 0 - value), value < 0,
+                                                      base, precision, width, flags);
                     }
                     else
                     {
                         const int value = (flags & FLAGS_CHAR)    ? (char) va_arg(va, int)
                                           : (flags & FLAGS_SHORT) ? (short int) va_arg(va, int)
                                                                   : va_arg(va, int);
-                        idx = _ntoa_long(out, buffer, idx, maxlen,
-                                         (unsigned int) (value > 0 ? value : 0 - value), value < 0,
-                                         base, precision, width, flags);
+                        idx             = _ntoa_long(out, buffer, idx, maxlen,
+                                                     (unsigned int) (value > 0 ? value : 0 - value), value < 0,
+                                                     base, precision, width, flags);
                     }
                 }
                 else
@@ -795,7 +789,9 @@ int snprintf_(char *buffer, size_t count, const char *format, ...)
 
 
 int vsnprintf_(char *buffer, size_t count, const char *format, va_list va)
-{ return _vsnprintf(_out_buffer, buffer, count, format, va); }
+{
+    return _vsnprintf(_out_buffer, buffer, count, format, va);
+}
 
 
 int fctprintf(void (*out)(char character, void *arg), void *arg, const char *format, ...)
