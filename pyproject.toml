@@ -3,7 +3,7 @@
 # uv pip install .
 [project]
 name = "shepherd-targets"
-version = "0.6.0"
+version = "0.6.1"
 description = "Collection of Target-Hardware and MCU-Firmwares"
 requires-python = ">=3.12"
 dependencies = [
