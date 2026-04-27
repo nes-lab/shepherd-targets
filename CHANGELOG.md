@@ -1,6 +1,8 @@
 # Changelog
 
-# v0.6.1 - unreleased
+# v0.6.2 - unreleased
+
+# v0.6.1
 
 - extend node-count for rf-survey (trafficbench)
 - switch from pipenv to uv / pip environments
