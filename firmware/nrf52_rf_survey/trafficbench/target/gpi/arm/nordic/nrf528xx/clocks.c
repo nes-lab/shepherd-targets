@@ -157,7 +157,8 @@ Gpi_Hybrid_Reference gpi_tick_hybrid_reference()
   #endif
 
     // get edge ticks
-    do {
+    do
+    {
         // clear event register
         _gpi_clocks_rtc->EVENTS_TICK = 0;
 

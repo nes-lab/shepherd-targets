@@ -239,7 +239,8 @@ PT_THREAD(postproc_thread())
 					int_fast16_t	is_invalid_samples = -1;
 					uint8_t			x_last;
     #define CHECK_SAMPLES(x_)                                                                      \
-        do {                                                                                       \
+        do                                                                                         \
+        {                                                                                          \
             uint32_t x = x_;                                                                       \
             for (int_fast8_t i = 4; i-- > 0;)                                                      \
             {                                                                                      \

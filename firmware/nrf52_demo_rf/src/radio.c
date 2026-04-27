@@ -80,29 +80,29 @@ int radio_init()
 
     /* Stores BLE header */
     NRF_RADIO->PCNF0     = (0UL << RADIO_PCNF0_S1LEN_Pos) | (1UL << RADIO_PCNF0_S0LEN_Pos) |
-                       (8UL << RADIO_PCNF0_LFLEN_Pos) |
-                       (RADIO_PCNF0_PLEN_8bit << RADIO_PCNF0_PLEN_Pos);
+                           (8UL << RADIO_PCNF0_LFLEN_Pos) |
+                           (RADIO_PCNF0_PLEN_8bit << RADIO_PCNF0_PLEN_Pos);
 
     /* Data whitening, little endian, 3B base address */
-    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Enabled << RADIO_PCNF1_WHITEEN_Pos) |
-                       (RADIO_PCNF1_ENDIAN_Little << RADIO_PCNF1_ENDIAN_Pos) |
-                       (3 << RADIO_PCNF1_BALEN_Pos) | (0 << RADIO_PCNF1_STATLEN_Pos) |
-                       (255 << RADIO_PCNF1_MAXLEN_Pos);
+    NRF_RADIO->PCNF1     = (RADIO_PCNF1_WHITEEN_Enabled << RADIO_PCNF1_WHITEEN_Pos) |
+                           (RADIO_PCNF1_ENDIAN_Little << RADIO_PCNF1_ENDIAN_Pos) |
+                           (3 << RADIO_PCNF1_BALEN_Pos) | (0 << RADIO_PCNF1_STATLEN_Pos) |
+                           (255 << RADIO_PCNF1_MAXLEN_Pos);
 
     /* For CRC settings see Bluetooth Core Spec 5.2 Section 3.1.1 */
     /* Three byte CRC, skip address */
-    NRF_RADIO->CRCCNF = (RADIO_CRCCNF_LEN_Three << RADIO_CRCCNF_LEN_Pos) |
-                        (RADIO_CRCCNF_SKIPADDR_Skip << RADIO_CRCCNF_SKIPADDR_Pos);
+    NRF_RADIO->CRCCNF    = (RADIO_CRCCNF_LEN_Three << RADIO_CRCCNF_LEN_Pos) |
+                           (RADIO_CRCCNF_SKIPADDR_Skip << RADIO_CRCCNF_SKIPADDR_Pos);
 
     /* Initial value */
-    NRF_RADIO->CRCINIT  = 0x555555;
+    NRF_RADIO->CRCINIT   = 0x555555;
     /* CRC poly: x^24 + x^10 + x^9 + x^6 + x^4 + x^3 + x + 1 */
-    NRF_RADIO->CRCPOLY  = 0x100065B;
+    NRF_RADIO->CRCPOLY   = 0x100065B;
 
     /* Set default shorts */
-    NRF_RADIO->SHORTS   = NRF_RADIO_SHORT_TXREADY_START_MASK | NRF_RADIO_SHORT_END_DISABLE_MASK;
+    NRF_RADIO->SHORTS    = NRF_RADIO_SHORT_TXREADY_START_MASK | NRF_RADIO_SHORT_END_DISABLE_MASK;
 
-    NRF_RADIO->INTENSET = RADIO_INTENSET_DISABLED_Msk;
+    NRF_RADIO->INTENSET  = RADIO_INTENSET_DISABLED_Msk;
     NVIC_EnableIRQ(RADIO_IRQn);
 
     NRF_PPI->CH[4].EEP = (uint32_t) &NRF_CLOCK->EVENTS_HFCLKSTARTED;
