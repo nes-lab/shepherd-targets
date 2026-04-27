@@ -1,0 +1,29 @@
+# virtual project for a dev-environment, usable via:
+# uv venv
+# uv pip install .
+[project]
+name = "shepherd-targets"
+version = "0.6.1"
+description = "Collection of Target-Hardware and MCU-Firmwares"
+requires-python = ">=3.12"
+dependencies = [
+    "trafficbench",
+    "shepherd-core[elf]",
+    # Trafficbench host-scripts
+    "numpy",
+    "tables",
+    "cbor2",
+    "crcmod",
+    "xonsh",
+    "vitables",
+    "crc",
+    "matplotlib",
+    # dev
+    "prek",  # pre-commit replacement
+]
+
+[tool.uv]
+package = false
+
+[tool.setuptools]
+packages = []

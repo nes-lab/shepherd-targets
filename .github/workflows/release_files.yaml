@@ -6,8 +6,7 @@ on:
       - 'v*.*.*'
   workflow_dispatch:
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
   call-build-msp:
@@ -18,6 +17,8 @@ jobs:
     uses: ./.github/workflows/qa_tests.yaml
   release-firmware:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     needs:
       - run-quality-assurance
       - call-build-msp
