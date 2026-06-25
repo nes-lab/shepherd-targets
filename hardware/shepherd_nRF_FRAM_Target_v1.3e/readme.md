@@ -2,7 +2,7 @@
 
 Shared pins between MCUs and Observers with **Cape V2.5 (deployed in near future / mid 2025)**.
 
-**The testbed still uses Cape v2.4 as of 2025-04. See 2nd table below for that mapping.**
+~~The testbed still uses Cape v2.4 as of 2025-04. See 2nd table below for that mapping.~~
 
 **Note**:
 
@@ -40,7 +40,7 @@ Shared pins between MCUs and Observers with **Cape V2.5 (deployed in near future
 |          | -     | I2C.SCL    | P1.08  | P6.5    |                             |
 |          | -     | I2C.SDA    | P0.06  | P6.4    |                             |
 |          | -     | RTC.INT    | P0.30  | P7.3    | shared, no fct for shp      |
-|          | -     | MAX.INT    | P0.30  | PJ.1    | shared, no fct for shp      |
+|          | -     | MAX.INT    | P0.25  | PJ.1    | shared, no fct for shp      |
 |          | -     | C2C.CLK    | P0.18  | P1.5    | msp.A0.CLK                  |
 |          | -     | C2C.CoPi   | P0.17  | P2.0    | msp.A0.CoPi                 |
 |          | -     | C2C.CiPo   | P0.14  | P2.1    | msp.A0.CiPo                 |

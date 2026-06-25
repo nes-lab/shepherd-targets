@@ -21,11 +21,11 @@ Just contact us if you got ideas.
 
 ## nRF52 with MSP430FR as FRAM
 
-Hardware v1.3+ uses
+The current hardware v1.3+ uses
 
-- nRF52840
-- MSP430FR5994 (TI)
-- RTC AB1805
+- Nordic nRF52840 - primary MCU with RF
+- TI MSP430FR5994 - secondary MCU with low-energy FRAM
+- Abracon AB1805 - real-time clock
 
 ![Target_nRF_MSP430](./media/shepherd_nRF_FRAM_Target_v1.3_photo_front.jpg)
 
@@ -45,9 +45,10 @@ This folder also contains a guide for testing new target-PCBs.
 - LEDs / UART similar to [Riotee](https://www.riotee.nessie-circuits.de/)
 - nRF uses low voltage mode (PSv1.1 page 61)
 - 16x GPIO shared to host, current-limited with 240R star-configuration (every participant has that resistor on its port to also keep data rates >10 MHz)
-- high & low power-good-signal (similar to riotee)
+- high & low power-good-signal (similar to Riotee)
 - SMA-port for external antenna
-- 3rd possible way for reset (external), beside jtag and pwr-cycle
+- RF-Balun optimized for high output power (PS v1.8 ref circuit 7)
+- ~~3rd possible way for reset (external)~~, beside jtag and pwr-cycle
 
 ### nRF52-Firmwares
 
