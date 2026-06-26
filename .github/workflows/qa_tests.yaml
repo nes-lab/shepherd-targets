@@ -18,4 +18,4 @@ jobs:
         run: sudo apt install cppcheck
         # NOTE: cppcheck is needed for pre-commit
       - name: Run Pre-Commit Tests 🧪
-        uses: j178/prek-action@v1
+        uses: j178/prek-action@v2
