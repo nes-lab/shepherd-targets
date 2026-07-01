@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install dependencies 🔧
         run: sudo apt update && sudo apt install -y build-essential wget unzip
@@ -79,7 +79,7 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install dependencies 🔧
         run: sudo apt update && sudo apt install -y build-essential wget unzip
