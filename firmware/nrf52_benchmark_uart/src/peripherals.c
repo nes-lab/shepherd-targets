@@ -43,23 +43,23 @@ unsigned int timer_now_us(void)
 
 uint32_t baudrate_to_setting(uint32_t baudrate)
 {
-    if (baudrate <= 2400) return NRF_UART_BAUDRATE_1200;
-    if (baudrate <= 4800) return NRF_UART_BAUDRATE_2400;
-    if (baudrate <= 9600) return NRF_UART_BAUDRATE_4800;
-    if (baudrate <= 14400) return NRF_UART_BAUDRATE_9600;
-    if (baudrate <= 19200) return NRF_UART_BAUDRATE_14400;
-    if (baudrate <= 28800) return NRF_UART_BAUDRATE_19200;
-    if (baudrate <= 31250) return NRF_UART_BAUDRATE_28800;
-    if (baudrate <= 38400) return NRF_UART_BAUDRATE_31250;
-    if (baudrate <= 56000) return NRF_UART_BAUDRATE_38400;
-    if (baudrate <= 57600) return NRF_UART_BAUDRATE_56000;
-    if (baudrate <= 76800) return NRF_UART_BAUDRATE_57600;
-    if (baudrate <= 115200) return NRF_UART_BAUDRATE_76800;
-    if (baudrate <= 230400) return NRF_UART_BAUDRATE_115200;
-    if (baudrate <= 250000) return NRF_UART_BAUDRATE_230400;
-    if (baudrate <= 460800) return NRF_UART_BAUDRATE_250000;
-    if (baudrate <= 921600) return NRF_UART_BAUDRATE_460800;
-    if (baudrate <= 1000000) return NRF_UART_BAUDRATE_921600;
+    if (baudrate < 2400) return NRF_UART_BAUDRATE_1200;
+    if (baudrate < 4800) return NRF_UART_BAUDRATE_2400;
+    if (baudrate < 9600) return NRF_UART_BAUDRATE_4800;
+    if (baudrate < 14400) return NRF_UART_BAUDRATE_9600;
+    if (baudrate < 19200) return NRF_UART_BAUDRATE_14400;
+    if (baudrate < 28800) return NRF_UART_BAUDRATE_19200;
+    if (baudrate < 31250) return NRF_UART_BAUDRATE_28800;
+    if (baudrate < 38400) return NRF_UART_BAUDRATE_31250;
+    if (baudrate < 56000) return NRF_UART_BAUDRATE_38400;
+    if (baudrate < 57600) return NRF_UART_BAUDRATE_56000;
+    if (baudrate < 76800) return NRF_UART_BAUDRATE_57600;
+    if (baudrate < 115200) return NRF_UART_BAUDRATE_76800;
+    if (baudrate < 230400) return NRF_UART_BAUDRATE_115200;
+    if (baudrate < 250000) return NRF_UART_BAUDRATE_230400;
+    if (baudrate < 460800) return NRF_UART_BAUDRATE_250000;
+    if (baudrate < 921600) return NRF_UART_BAUDRATE_460800;
+    if (baudrate < 1000000) return NRF_UART_BAUDRATE_921600;
     return NRF_UART_BAUDRATE_1000000;
 }
 
