@@ -3,6 +3,7 @@ metadata:
   msp430_deep_sleep: practically turned off MCU with the lowest possible consumption
   msp430_spi_fram: riotee implementation to use MSP as a flash storage
   msp430_testable: switches on all shared gpio one by one (verification after assembly)
+  nrf52_benchmark_uart: A `lorem ipsum` stress-test for the testbed and decoders
   nrf52_demo_rf: A simple demo that sends BLE packets when energy budget allows it
   nrf52_testable: watches all gpio and reports with UART messages (verification after assembly)
   nrf52_rf_test: sends out 1 BLE-Packet per second (verify with an app like 'LightBlue')
