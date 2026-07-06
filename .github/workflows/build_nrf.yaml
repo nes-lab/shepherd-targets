@@ -113,7 +113,7 @@ jobs:
         run: "make BAUDRATE=${{ matrix.baudrate }}"
         working-directory: "${{ github.workspace }}/firmware/${{ matrix.subproject }}"
 
-      - run: "mkdir -p content/${{ matrix.subproject }}/"
+      - run: "mkdir -p content/${{ matrix.subproject }}_${{ matrix.baudrate }}/"
       - run: "cp ${{ github.workspace }}/firmware/${{ matrix.subproject }}/_build/build.elf content/${{ matrix.subproject }}_${{ matrix.baudrate }}/"
       - run: "cp ${{ github.workspace }}/firmware/${{ matrix.subproject }}/_build/build.hex content/${{ matrix.subproject }}_${{ matrix.baudrate }}/"
 
