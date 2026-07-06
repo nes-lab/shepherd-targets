@@ -3,7 +3,9 @@ skip = *.brd,*.sch,*.lbr,*.EXTREP,*.REP,*/trafficbench/*,
 
 builtin = clear,rare,informal,usage,code,en-GB_to_en-US
 
-ignore-words-list = dout,jupyter,stdio,astroid,uint,ro,fram
+ignore-words-list = dout,jupyter,stdio,astroid,uint,ro,fram,nam,optio
+# benchmark_uart: nam, option
+
 
 # options without argument
 check-filenames =

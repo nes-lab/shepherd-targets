@@ -63,7 +63,6 @@ uint32_t baudrate_to_setting(uint32_t baudrate)
 }
 
 
-
 int uart_init(uint32_t pseltxd, uint32_t pselrxd, uint32_t baudrate)
 {
     nrf_uart_configure(NRF_UART0, NRF_UART_PARITY_EXCLUDED, NRF_UART_HWFC_DISABLED);
