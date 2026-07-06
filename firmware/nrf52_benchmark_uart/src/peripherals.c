@@ -59,7 +59,7 @@ uint32_t baudrate_to_setting(uint32_t baudrate)
     if (baudrate <= 460800) return NRF_UART_BAUDRATE_250000;
     if (baudrate <= 921600) return NRF_UART_BAUDRATE_460800;
     if (baudrate <= 1000000) return NRF_UART_BAUDRATE_921600;
-    return NRF_UART_BAUDRATE_1M;
+    return NRF_UART_BAUDRATE_1000000;
 }
 
 
