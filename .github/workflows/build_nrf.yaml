@@ -60,6 +60,69 @@ jobs:
           name: "${{ matrix.subproject }}"
           path: "content/${{ matrix.subproject }}/"
 
+  build_benchmark_uart:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        subproject:
+          - nrf52_benchmark_uart
+        baudrate:
+          - 14400
+          - 19200
+          - 28800
+          - 38400
+          - 57600
+          - 76800
+          - 115200
+          - 230400
+          - 460800
+          - 921600
+          - 1000000
+
+    env:
+      GNU_INSTALL_LINK: https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2
+      GNU_INSTALL_ROOT: "${{ github.workspace }}/gcc-arm-none-eabi-10.3-2021.10/bin/"
+      # updates: https://developer.arm.com/downloads/-/gnu-rm
+      SDK_LINK: https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/sdks/nrf5/binaries/nrf5_sdk_17.1.0_ddde560.zip
+      SDK_ROOT: "${{ github.workspace }}/nRF5_SDK_17.1.0_ddde560"
+      # updates: https://www.nordicsemi.com/Products/Development-software/nrf5-sdk/download
+      # -> the two _ROOT environment variables are important for the make-file
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v6
+
+      - name: Install dependencies 🔧
+        run: sudo apt update && sudo apt install -y build-essential wget unzip
+
+      - name: Download GNU ARM Embedded Toolchain 🔽
+        run: "wget -q --tries 3 ${{ env.GNU_INSTALL_LINK }} --output-document=gcc-arm.tar.bz2"
+        working-directory: "${{ github.workspace }}"
+      - name: Extract GCC ARM cross-compiler ⚔
+        run: "tar -xf gcc-arm.tar.bz2"
+        working-directory: "${{ github.workspace }}"
+
+      - name: Download nRF5 SDK 🔽
+        run: "wget -q --tries 3 ${{ env.SDK_LINK }} --output-document=sdk_nrf.zip"
+        working-directory: "${{ github.workspace }}"
+      - name: Extract nRF5 SDK
+        run: "unzip -q sdk_nrf.zip"
+        working-directory: "${{ github.workspace }}"
+
+      - name: Build the project "${{ matrix.subproject }}" 🧱
+        run: "make BAUDRATE=${{ matrix.baudrate }}"
+        working-directory: "${{ github.workspace }}/firmware/${{ matrix.subproject }}"
+
+      - run: "mkdir -p content/${{ matrix.subproject }}/"
+      - run: "cp ${{ github.workspace }}/firmware/${{ matrix.subproject }}/_build/build.elf content/${{ matrix.subproject }}_${{ matrix.baudrate }}/"
+      - run: "cp ${{ github.workspace }}/firmware/${{ matrix.subproject }}/_build/build.hex content/${{ matrix.subproject }}_${{ matrix.baudrate }}/"
+
+      - name: Upload artifacts to GitHub 🔼
+        uses: actions/upload-artifact@v7
+        with:
+          name: "${{ matrix.subproject }}_${{ matrix.baudrate }}"
+          path: "content/${{ matrix.subproject }}_${{ matrix.baudrate }}/"
+
   build_segger:
     runs-on: ubuntu-latest
     strategy:
