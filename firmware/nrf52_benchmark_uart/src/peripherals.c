@@ -45,7 +45,8 @@ uint32_t baudrate_to_setting(uint32_t baudrate)
 {
     if (baudrate <= 2400) return NRF_UART_BAUDRATE_1200;
     if (baudrate <= 4800) return NRF_UART_BAUDRATE_2400;
-    if (baudrate <= 14400) return NRF_UART_BAUDRATE_4800;
+    if (baudrate <= 9600) return NRF_UART_BAUDRATE_4800;
+    if (baudrate <= 14400) return NRF_UART_BAUDRATE_9600;
     if (baudrate <= 19200) return NRF_UART_BAUDRATE_14400;
     if (baudrate <= 28800) return NRF_UART_BAUDRATE_19200;
     if (baudrate <= 31250) return NRF_UART_BAUDRATE_28800;

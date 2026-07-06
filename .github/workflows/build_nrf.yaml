@@ -64,9 +64,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        subproject:
-          - nrf52_benchmark_uart
         baudrate:
+          - 1200
+          - 2400
+          - 4800
+          - 9600
           - 14400
           - 19200
           - 28800
@@ -109,19 +111,19 @@ jobs:
         run: "unzip -q sdk_nrf.zip"
         working-directory: "${{ github.workspace }}"
 
-      - name: Build the project "${{ matrix.subproject }}" 🧱
+      - name: Build the project nrf52_benchmark_uart 🧱
         run: "make BAUDRATE=${{ matrix.baudrate }}"
-        working-directory: "${{ github.workspace }}/firmware/${{ matrix.subproject }}"
+        working-directory: "${{ github.workspace }}/firmware/nrf52_benchmark_uart"
 
-      - run: "mkdir -p content/${{ matrix.subproject }}_${{ matrix.baudrate }}/"
-      - run: "cp ${{ github.workspace }}/firmware/${{ matrix.subproject }}/_build/build.elf content/${{ matrix.subproject }}_${{ matrix.baudrate }}/"
-      - run: "cp ${{ github.workspace }}/firmware/${{ matrix.subproject }}/_build/build.hex content/${{ matrix.subproject }}_${{ matrix.baudrate }}/"
+      - run: "mkdir -p content/nrf52_benchmark_uart/"
+      - run: "cp ${{ github.workspace }}/firmware/nrf52_benchmark_uart/_build/build.elf content/nrf52_benchmark_uart/build_${{ matrix.baudrate }}.elf"
+      - run: "cp ${{ github.workspace }}/firmware/nrf52_benchmark_uart/_build/build.hex content/nrf52_benchmark_uart/build_${{ matrix.baudrate }}.hex"
 
       - name: Upload artifacts to GitHub 🔼
         uses: actions/upload-artifact@v7
         with:
-          name: "${{ matrix.subproject }}_${{ matrix.baudrate }}"
-          path: "content/${{ matrix.subproject }}_${{ matrix.baudrate }}/"
+          name: "nrf52_benchmark_uart_${{ matrix.baudrate }}"
+          path: "content/nrf52_benchmark_uart/"
 
   build_segger:
     runs-on: ubuntu-latest
