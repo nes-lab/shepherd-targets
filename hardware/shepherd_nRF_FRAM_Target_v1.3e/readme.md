@@ -309,7 +309,10 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
 - pin 1 marking bigger on ICs
 - is there a paste-pad under the TS5A?
 - allow using internal switching regulator from nRF to lower power-consumption
-- **remove Copper below edge connector**
+- **remove Copper below edge connector** (if it stays)
   - the connector should get a chamfer (as it breaks the expensive connector)
   - alternative: switch to FPC or FFC, as it is cheaper
+- replace edge-connector with FPC- or FCC-connector?
 - add small eeprom? allows identifying targets in testbed (device inventory can query itself)
+- add reset line(s) to better handle softbricked MCUs
+- allow [usage of internal boost-converter of nRF52](https://github.com/nes-lab/shepherd-targets/issues/42)
