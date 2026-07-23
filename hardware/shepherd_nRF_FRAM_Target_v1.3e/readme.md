@@ -298,6 +298,13 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
 
 ## Errata & future Improvements
 
+- add reset line(s) to better handle softbricked MCUs
+- allow [using internal switching regulator from nRF to lower power-consumption](https://github.com/nes-lab/shepherd-targets/issues/42)
+- **remove Copper below edge connector** (if it stays)
+  - the connector should get a chamfer (as it breaks the expensive connector)
+  - alternative: switch to FPC or FFC, as it is cheaper
+- replace edge-connector with FPC- or FCC-connector?
+- add small eeprom? allows identifying targets in testbed (device inventory can query itself)
 - BGA without paste? MSP-failure-rate stays ~ 20 %
   - low temp paste is harder to control - does not wet as good and needs manual fixes (almost on every PCB)
 - bridge to panel should be moved away from BGA
@@ -305,14 +312,6 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
 - QR Code can now be directly created in Altium
 - perforated breaking lines on panels (extension of milled line)
 - bridge to panel can be thinner
-- move LED a bit away from SMA
+- move LED away from SMA
 - pin 1 marking bigger on ICs
 - is there a paste-pad under the TS5A?
-- allow using internal switching regulator from nRF to lower power-consumption
-- **remove Copper below edge connector** (if it stays)
-  - the connector should get a chamfer (as it breaks the expensive connector)
-  - alternative: switch to FPC or FFC, as it is cheaper
-- replace edge-connector with FPC- or FCC-connector?
-- add small eeprom? allows identifying targets in testbed (device inventory can query itself)
-- add reset line(s) to better handle softbricked MCUs
-- allow [usage of internal boost-converter of nRF52](https://github.com/nes-lab/shepherd-targets/issues/42)
