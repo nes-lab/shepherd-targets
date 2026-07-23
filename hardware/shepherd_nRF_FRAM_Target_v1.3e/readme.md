@@ -298,7 +298,7 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
 
 ## Errata & future Improvements
 
-- add reset line(s) to better handle softbricked MCUs
+- add reset line(s) to better handle soft-bricked MCUs
 - allow [using internal switching regulator from nRF to lower power-consumption](https://github.com/nes-lab/shepherd-targets/issues/42)
 - **remove Copper below edge connector** (if it stays)
   - the connector should get a chamfer (as it breaks the expensive connector)
