@@ -333,17 +333,17 @@ void gpi_platform_init()
 
     // stop HFXO (if running), implicitly switch HFCLK to HFINT
     //	if (NRF_CLOCK->HFCLKSTAT & CLOCK_HFCLKSTAT_STATE_Msk)
-    NRF_CLOCK->TASKS_HFCLKSTOP = 1;
+    NRF_CLOCK->TASKS_HFCLKSTOP     = 1;
 
     // stop LFXO (if running)
     //	if (NRF_CLOCK->LFCLKSTAT & CLOCK_LFCLKSTAT_STATE_Msk)
-    NRF_CLOCK->TASKS_LFCLKSTOP = 1;
+    NRF_CLOCK->TASKS_LFCLKSTOP     = 1;
 
     // init CLOCK module
-    NRF_CLOCK->INTENCLR        = -1u;
-    NRF_CLOCK->LFCLKSRC        = BV_BY_NAME(CLOCK_LFCLKSRC_SRC, Xtal) |
-                          BV_BY_NAME(CLOCK_LFCLKSRC_BYPASS, Disabled) |
-                          BV_BY_NAME(CLOCK_LFCLKSRC_EXTERNAL, Disabled);
+    NRF_CLOCK->INTENCLR            = -1u;
+    NRF_CLOCK->LFCLKSRC            = BV_BY_NAME(CLOCK_LFCLKSRC_SRC, Xtal) |
+                                     BV_BY_NAME(CLOCK_LFCLKSRC_BYPASS, Disabled) |
+                                     BV_BY_NAME(CLOCK_LFCLKSRC_EXTERNAL, Disabled);
     NRF_CLOCK->HFXODEBOUNCE        = BV_BY_VALUE(CLOCK_HFXODEBOUNCE_HFXODEBOUNCE, 0x40);
     NRF_CLOCK->LFXODEBOUNCE        = BV_BY_NAME(CLOCK_LFXODEBOUNCE_LFXODEBOUNCE, Normal);
     // TODO: set to Extended if extended temperature range is needed [4452_021 v1.6 p.94]

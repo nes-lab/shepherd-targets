@@ -239,8 +239,8 @@ void gpi_radio_set_channel(int channel)
                 default: freq = 80; break;
             }
 
-            NRF_RADIO->FREQUENCY = BV_BY_VALUE(RADIO_FREQUENCY_FREQUENCY, freq) |
-                                   BV_BY_NAME(RADIO_FREQUENCY_MAP, Default);
+            NRF_RADIO->FREQUENCY   = BV_BY_VALUE(RADIO_FREQUENCY_FREQUENCY, freq) |
+                                     BV_BY_NAME(RADIO_FREQUENCY_MAP, Default);
 
             // whitening LFSR init value is derived from channel index
             // (see Bluetooth Core Spec. v5.1 Vol. 6 Part B section 3.2 for details)
@@ -288,7 +288,7 @@ void gpi_radio_init(Gpi_Radio_Mode mode)
     {
         case IEEE_802_15_4:
         {
-            NRF_RADIO->MODE  = BV_BY_NAME(RADIO_MODE_MODE, Ieee802154_250Kbit);
+            NRF_RADIO->MODE    = BV_BY_NAME(RADIO_MODE_MODE, Ieee802154_250Kbit);
 
             // The nRF52840 Product Specification (4413_417 v1.0) is vague regarding the required
             // settings of PCNF0 and PCNF1 in IEEE 802.15.4 mode. The correct settings can be
@@ -296,14 +296,14 @@ void gpi_radio_init(Gpi_Radio_Mode mode)
             // https://github.com/NordicSemiconductor/nRF-IEEE-802.15.4-radio-driver
             // Look into their nrf_radio_init() function and compare the settings.
 
-            NRF_RADIO->PCNF0 = BV_BY_VALUE(RADIO_PCNF0_LFLEN, 8) |
-                               BV_BY_NAME(RADIO_PCNF0_PLEN, 32bitZero) |
-                               BV_BY_NAME(RADIO_PCNF0_CRCINC, Include);
+            NRF_RADIO->PCNF0   = BV_BY_VALUE(RADIO_PCNF0_LFLEN, 8) |
+                                 BV_BY_NAME(RADIO_PCNF0_PLEN, 32bitZero) |
+                                 BV_BY_NAME(RADIO_PCNF0_CRCINC, Include);
 
-            NRF_RADIO->PCNF1  = BV_BY_VALUE(RADIO_PCNF1_MAXLEN, 127);
+            NRF_RADIO->PCNF1   = BV_BY_VALUE(RADIO_PCNF1_MAXLEN, 127);
 
-            NRF_RADIO->CRCCNF = BV_BY_NAME(RADIO_CRCCNF_LEN, Two) |
-                                BV_BY_NAME(RADIO_CRCCNF_SKIPADDR, Ieee802154);
+            NRF_RADIO->CRCCNF  = BV_BY_NAME(RADIO_CRCCNF_LEN, Two) |
+                                 BV_BY_NAME(RADIO_CRCCNF_SKIPADDR, Ieee802154);
             NRF_RADIO->CRCPOLY = 0x011021;
             NRF_RADIO->CRCINIT = 0;
 

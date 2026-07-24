@@ -147,9 +147,9 @@ extern "C" {
 #define cbor_encode_uint(item, value)   cbor_encode_uint_(&(item), sizeof(item), (value))
 #define cbor_encode_uint_tiny(item, value)                                                         \
     cbor_encode_uint_(&(item), sizeof(cbor_uint_tiny_t), (value))
-#define cbor_encode_uint8(item, value)         cbor_encode_uint_(&(item), sizeof(cbor_uint8_t), (value))
-#define cbor_encode_uint16(item, value)        cbor_encode_uint_(&(item), sizeof(cbor_uint16_t), (value))
-#define cbor_encode_uint32(item, value)        cbor_encode_uint_(&(item), sizeof(cbor_uint32_t), (value))
+#define cbor_encode_uint8(item, value)  cbor_encode_uint_(&(item), sizeof(cbor_uint8_t), (value))
+#define cbor_encode_uint16(item, value) cbor_encode_uint_(&(item), sizeof(cbor_uint16_t), (value))
+#define cbor_encode_uint32(item, value) cbor_encode_uint_(&(item), sizeof(cbor_uint32_t), (value))
 #define cbor_encode_uint_by_value(item, value) cbor_encode_uint_by_value_(&(item), (value))
 
 #define cbor_encode_int(item, value)           cbor_encode_int_(&(item), sizeof(item), (value))
@@ -242,7 +242,8 @@ static inline void *cbor_encode_uint_(void *dest, size_t size, uint_fast32_t val
 
 #if 0
   #define cbor_encode_uint(field, value)                                                           \
-      do {                                                                                         \
+      do                                                                                           \
+      {                                                                                            \
           typeof(field) *p = &(field);                                                             \
           p->hdr           = 24 + MSB(sizeof(p->val));                                             \
           p->val           = hton((value), sizeof(p->val));                                        \
@@ -286,7 +287,8 @@ static inline void *cbor_encode_int_(void *dest, size_t size, int_fast32_t value
 
 #if 0
   #define cbor_encode_int(field, value)                                                            \
-      do {                                                                                         \
+      do                                                                                           \
+      {                                                                                            \
           typeof(field) *p = &(field);                                                             \
           typeof(value)  x = (value);                                                              \
           if (x < 0)                                                                               \

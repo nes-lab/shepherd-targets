@@ -91,7 +91,8 @@
 
 // record timestamp
 #define GPI_PROFILE(priority_level, ...)                                                           \
-    do {                                                                                           \
+    do                                                                                             \
+    {                                                                                              \
         __asm__ volatile(".section gpi_profile_info				\n"                                         \
                          "1:										\n"                                                          \
                          ".byte 0x81								\n" /* marker */               \
