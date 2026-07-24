@@ -299,12 +299,40 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
 ## Errata & future Improvements
 
 - add reset line(s) to better handle soft-bricked MCUs
+  - needs 1-2x additional GPIO from Host (2 available) and Pins on target connector
+  - nRST of both MCUs could be combined to 1 Pin
+  - nRST is often default, could be negated on new target PCBs if needed
+  - current 40 Pin target-connector has two NC pins left
 - allow [using internal switching regulator from nRF to lower power-consumption](https://github.com/nes-lab/shepherd-targets/issues/42)
-- **remove Copper below edge connector** (if it stays)
+  - current firmware is forward-compatible (but newer not backward-compat)
+  - add L 10uH & 15nH from DCC to DEC4 (1V3) and 1uF & 47nF to GND
+  - ~~HV add L 10uH from DCCH to VDD, remove connection between VDDH to VDD~~
+  - DK uses both, but MSP, RTC & NRF-VL limit voltage to max 3.8 V
+  - contra HV: current design directly connects HV- & LV-input
+- allow routing AUX-voltage (second output of DAC) to the same target port
+  - mimic V_Sense to allow developing better intermittent algorithms (allows sensing emulated V_harvest or V_storage_cap)
+  - needs one additional pin on target connector -> current 40 Pin target-connector has two NC pins left
+  - Needs one additional GPIO from Host -> two GPIO available for the analog switch (48, 117) - can be slow sysgpio
+- remove Copper below edge connector (if it stays)
   - the connector should get a chamfer (as it breaks the expensive connector)
   - alternative: switch to FPC or FFC, as it is cheaper
-- replace edge-connector with FPC- or FCC-connector?
+- replace edge-connector with flex connector? (FPC or FCC / FFC)
+  - contra: current setup is rigid and easy to transport without a case
+  - pro: freely position targets in case
+  - pro: automatically rotation-safe
+  - pro: more usable GPIO on same 40x-Connector (needs less additional GND-Shielding)
+  - pro: easier to replace, cheaper,
+  - features to keep: rotation-safe & shielded (currently 12x extra GND)
+  - needed IO: 16 GPIO, 2 Voltages, 2 PwrGood, 4 Prog, 1+ GND => 25+ Pins
+    - +1x for aux voltage
+    - +1x for reset line (nRF & msp have nReset) -> 2 lines or negate if needed
+    - +2x-3x for I2C-EEPROM (Write-Protection)
+    - in total 5 pins extra
+  - 40 pin FFC/FPC, 0.5 mm Pitch, 1.5€ -> 05-40-A-0050-A-4-06-4-T-HF
+  - 40 pin connector has similar space req. as edge connector, 0.5 € per connector, FFC2B35-40-G
 - add small eeprom? allows identifying targets in testbed (device inventory can query itself)
+  - optional - when programmers are capable to read the UID of the MCUs (OpenOCD now can)
+  - needs 3 additional pins on target-port
 - BGA without paste? MSP-failure-rate stays ~ 20 %
   - low temp paste is harder to control - does not wet as good and needs manual fixes (almost on every PCB)
 - bridge to panel should be moved away from BGA
@@ -315,3 +343,6 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
 - move LED away from SMA
 - pin 1 marking bigger on ICs
 - is there a paste-pad under the TS5A?
+
+TODO:
+- test connecting resets
