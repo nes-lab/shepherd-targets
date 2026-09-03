@@ -60,21 +60,6 @@ ViTables (`vitables`), and Glue (`glue.xsh` in the `host` subfolder).
   see [news @ Segger](https://www.segger.com/news/segger-embedded-studio-ide-now-free-for-nordic-sdk-users/)
   and [tools-info @ nordic](https://www.nordicsemi.com/Products/Development-tools/Segger-Embedded-Studio).
 
-### Problems and Troubleshooting
-
-We found that currently (Oct 22) some software components cause **trouble with Python > 3.8**.
-Specifically,
-
-* Starting Glue fails with error message `TypeError: setValue(self, int): argument 1 has unexpected type 'float'`.
-
-* Starting ViTables fails with error message `AttributeError: module 'collections' has no attribute 'Iterable'`.
-
-Both problems are known and fixed in the development versions of Glue and ViTables
-(see <https://github.com/glue-viz/glue/pull/2266> and <https://github.com/uvemas/ViTables/pull/109> for details),
-so hopefully there will be updates in the future. For the moment we recommend to **use Python 3.8**.
-(Alternatively, you can incorporate the fixes manually into the installed software versions.
-Do not use Glue > 1.2.4 because this causes other issues (see [requirements.txt](host/requirements.txt) for details)).
-
 ## Usage
 
 ### Firmware
@@ -85,7 +70,7 @@ to the UART terminal. Here, "implement" means to do everything that is needed to
 schedule, i.e., network wake-up, clock and state synchronization, and schedule program execution.
 
 The firmware is ready to use in the sense that providing the schedule of interest (formulated
-in the specialized language, see [below](#communication-scheduling-and-checkpoints)) is enough
+in the specialized language, see below) is enough
 to be able to compile and run the firmware with the specific schedule.
 To demonstrate the process, the source code comes with a tutorial schedule that can be used
 to test the tool chain and run a simple test on a few Nordic
@@ -132,5 +117,3 @@ at [TU Dresden](https://tu-dresden.de) and [University of Freiburg](https://uni-
 Please visit <https://nes-lab.org> to find out more.
 
 ---
-
-**Footnotes**
