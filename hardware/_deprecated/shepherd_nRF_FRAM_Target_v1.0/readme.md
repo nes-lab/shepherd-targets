@@ -81,7 +81,7 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test1.yaml
 
 NOTE: best done with interconnector that only routes: pwr1, serial, programming-pins, pwr2
 Check UART output with logic analyzer or in shepherd recording.
-Behavior is described [here](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_testable).
+Behavior is described in [the firmware-directory](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_testable).
 
 ### Testing the Radio
 
@@ -93,7 +93,7 @@ sudo shepherd-sheep target-power -p A -v 3 --on
 sudo shepherd-sheep run /etc/shepherd/target_device_test2.yaml
 ```
 
-Behavior is described [here](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_rf_test).
+Behavior is described in [the firmware-directory](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_rf_test).
 
 ### Testing Power-consumption during sleep
 
@@ -122,8 +122,8 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
 
 ### v1.1
 
-[here](https://github.com/nes-lab/shepherd-targets/tree/main/hardware/shepherd_nRF_FRAM_Target_v1.1) - skipped
+Design-files are in [their directory](https://github.com/nes-lab/shepherd-targets/tree/main/hardware/shepherd_nRF_FRAM_Target_v1.1) - skipped
 
 ### v1.2
 
-[here](https://github.com/nes-lab/shepherd-targets/tree/main/hardware/shepherd_nRF_FRAM_Target_v1.2)
+Design-files are in [their directory](https://github.com/nes-lab/shepherd-targets/tree/main/hardware/shepherd_nRF_FRAM_Target_v1.2).

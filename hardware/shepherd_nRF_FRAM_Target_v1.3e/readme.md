@@ -7,7 +7,9 @@ Shared pins between MCUs and Observers with **Cape V2.5 (deployed in near future
 **Note**:
 
 - GPIO12 to GPIO15 are not recordable by the testbed with cape V2.5, as pins on the SBC are all used up
-- The nRF has no outer reset line - so configuring one could keep the MCU in permanent reset. Code for the nRF52-DK may use P0.21 for reset - it is actively used for UART-Rx here.
+- The nRF has no outer reset line
+  - configuring one could keep the MCU in permanent reset
+  - Code for the nRF52-DK may use P0.21 for reset - it is actively used for UART-Rx here.
 - A, B, C in DIR-Column refer to switch-groups. 1, 2 and/or 4 bits can be reversed to talk to the target.
 - D, E are switch-groups needed for programming
 
@@ -244,7 +246,7 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test1.yaml
 
 NOTE: best done with inter-connector that only routes: pwr1, serial, programming-pins, pwr2
 Check UART output with logic analyzer or in shepherd recording.
-Behavior is described [here](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_testable).
+Behavior is described in [the firmware-directory](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_testable).
 
 ### Testing the Radio
 
@@ -256,7 +258,7 @@ sudo shepherd-sheep target-power -p A -v 3 --on
 sudo shepherd-sheep run /etc/shepherd/target_device_test2.yaml
 ```
 
-Behavior is described [here](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_rf_test).
+Behavior is described in [the firmware-directory](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_rf_test).
 
 ### Testing Power-consumption during sleep
 
@@ -293,7 +295,7 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
 - panel - move holes of bridges a bit further out
 - finished as v1.3e
 
-**Production of v1.3e**
+## Production of v1.3e
 
 - BOM for 30n with spare, 650 € @ Mouser
 - Panels for 30n, 214 € @ JLCPCB

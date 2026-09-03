@@ -1,4 +1,4 @@
-## Cage for Target
+# Cage for Target
 
 This is a printable cage that protect the sensitive electronics.
 Biofilm could add a resistive layer on the PCB that increases power-consumption of the target.

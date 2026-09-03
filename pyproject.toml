@@ -27,3 +27,6 @@ package = false
 
 [tool.setuptools]
 packages = []
+
+[tool.rumdl]
+line-length = 160
