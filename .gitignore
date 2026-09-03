@@ -53,3 +53,4 @@ dkms.conf
 
 # pipenv
 Pipfile.lock
+uv.lock

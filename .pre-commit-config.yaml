@@ -52,7 +52,7 @@ repos:
 
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.16.0'
+    rev: 'v0.16.5'
     hooks:
       - id: ruff-format
       - id: ruff-check
@@ -70,8 +70,15 @@ repos:
       - id: codespell
         exclude: \.(sch|brd|lbr)$
 
+  - repo: https://github.com/rvben/rumdl-pre-commit
+    rev: v0.2.64
+    hooks:
+      - id: rumdl
+        args: [--fix]
+      - id: rumdl-fmt  # Pure format, always exits 0
+
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: v1.28.0
+    rev: v1.30.0
     hooks:
       - id: zizmor
         args: ["--min-severity", "high", "--no-progress", "--fix", "."]
@@ -86,7 +93,7 @@ repos:
 
   # cpp-check comes last! fails if uninstalled
   - repo: https://github.com/pocc/pre-commit-hooks
-    rev: "v1.3.5"
+    rev: "v1.4.0"
     hooks:
       - id: cppcheck
         args:
