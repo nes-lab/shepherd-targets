@@ -35,12 +35,12 @@ Edit the `pins` array and the UART pin definitions at the top of `src/main.c` to
 ### Mode >=2
 
 - UART
-    - P0_06 TX, _08 RX (Target v2.1, SDK)
-    - listens and answers
-    - should report when GPIOs are triggered
+  - P0_06 TX, _08 RX (Target v2.1, SDK)
+  - listens and answers
+  - should report when GPIOs are triggered
 - GPIO
-    - active: GPIO of shepherd target header (GPIO 0 to 6, 8, BATOK -> map to 0:8)
-    - switch on for 100 us after receiving on UART ("(%u)\r\n")
+  - active: GPIO of shepherd target header (GPIO 0 to 6, 8, BATOK -> map to 0:8)
+  - switch on for 100 us after receiving on UART ("(%u)\r\n")
 - NOTE: 115200 baud datarate
 
 ## Example Output Mode 0
@@ -110,4 +110,4 @@ Received all 31 shared pins!!
 
 ## Source
 
-based on https://github.com/geissdoerfer/shepherd-nrf52-demo
+based on <https://github.com/geissdoerfer/shepherd-nrf52-demo>

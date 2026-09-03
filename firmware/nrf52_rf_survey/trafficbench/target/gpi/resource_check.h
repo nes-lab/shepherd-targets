@@ -188,7 +188,7 @@
 //**************************************************************************************************
 //***** Local (Private) Defines and Consts *********************************************************
 
-#define _GPI_RESOURCE_SECTION_DECL        __attribute__((section(STRINGIFY(GPI_RESOURCE_CHECK_SECTION))))
+#define _GPI_RESOURCE_SECTION_DECL __attribute__((section(STRINGIFY(GPI_RESOURCE_CHECK_SECTION))))
 
 #if !GPI_RESOURCE_CHECK
 

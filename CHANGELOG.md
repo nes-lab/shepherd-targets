@@ -1,13 +1,19 @@
 # Changelog
 
-# v0.6.1 - unreleased
+## v0.6.2 - unreleased
+
+- add firmware to benchmark and measure uart-throughput of the testbed
+- doc improvements & fixes
+- lint markdown-files
+
+## v0.6.1
 
 - extend node-count for rf-survey (trafficbench)
 - switch from pipenv to uv / pip environments
 - switch from pre-commit to prek
 - audit GH workflows with zizmor
 
-# v0.6.0
+## v0.6.0
 
 - extend documentation
 - hardware - add more adapters (mostly for debug)
@@ -16,7 +22,7 @@
 - move firmwares into `/firmware`-subdir
 - update deps and tooling
 
-# v0.5.2
+## v0.5.2
 
 - add revised nRF-FRAM Target v1.3e (no functional changes)
 - update GPI, which now supports this target
@@ -24,13 +30,13 @@
 - deprecate old design-files (prior v1.3)
 - update deps and tooling
 
-# v0.5.1
+## v0.5.1
 
 - add documentation
 - update deps
 - fix QA
 
-# v0.5.0
+## v0.5.0
 
 - adapt firmware to nRF-FRAM Target v1.3
 - improve testing
@@ -47,6 +53,6 @@
 - update deps
 - add code of conduct
 
-# v0.4.3
+## v0.4.3
 
 - last version to support nRF-FRAM Targets v1.1 & v1.0

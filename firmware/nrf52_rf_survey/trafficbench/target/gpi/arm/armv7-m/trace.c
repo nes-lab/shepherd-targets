@@ -103,7 +103,8 @@ void GPI_TRACE_DSR_VECTOR()
     static unsigned int s_num_read = 0;
     unsigned int        num_written;
 
-    do {
+    do
+    {
         Gpi_Trace_Msg *msg, *msg_end;
         unsigned int   num_read;
 

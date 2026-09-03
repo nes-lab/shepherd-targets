@@ -52,7 +52,7 @@ riotee-probe program -d nrf52 -f ./nrf52_rf_test/build.hex
 
 If the nRF52 fails to program with an error similar to
 
-```
+```text
   File "C:\Users\hans\AppData\Local\Programs\Python\Python313\Lib\site-packages\pyocd\probe\cmsis_dap_probe.py", line 684, in write_ap_multiple
     raise self._convert_exception(exc) from exc
 pyocd.core.exceptions.TransferFaultError: Memory transfer fault @ 0x20004000-0x200040c3

@@ -83,7 +83,8 @@ __RAMFUNC void        application(struct pt *pt)
         pt_event_clear(&evt_off);
         /* Arm the powerfail comparator to switch off on low energy */
         pofwarn_arm();
-        do {
+        do
+        {
             /* Important: Stay awake to keep POF comparator active */
             __NOP();
         }

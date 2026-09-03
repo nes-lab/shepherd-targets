@@ -21,11 +21,11 @@ Just contact us if you got ideas.
 
 ## nRF52 with MSP430FR as FRAM
 
-Hardware v1.3+ uses
+The current hardware v1.3+ uses
 
-- nRF52840
-- MSP430FR5994 (TI)
-- RTC AB1805
+- Nordic nRF52840 - primary MCU with RF
+- TI MSP430FR5994 - secondary MCU with low-energy FRAM
+- Abracon AB1805 - real-time clock
 
 ![Target_nRF_MSP430](./media/shepherd_nRF_FRAM_Target_v1.3_photo_front.jpg)
 
@@ -45,9 +45,10 @@ This folder also contains a guide for testing new target-PCBs.
 - LEDs / UART similar to [Riotee](https://www.riotee.nessie-circuits.de/)
 - nRF uses low voltage mode (PSv1.1 page 61)
 - 16x GPIO shared to host, current-limited with 240R star-configuration (every participant has that resistor on its port to also keep data rates >10 MHz)
-- high & low power-good-signal (similar to riotee)
+- high & low power-good-signal (similar to Riotee)
 - SMA-port for external antenna
-- 3rd possible way for reset (external), beside jtag and pwr-cycle
+- RF-Balun optimized for high output power (PS v1.8 ref circuit 7)
+- ~~3rd possible way for reset (external)~~, beside jtag and pwr-cycle
 
 ### nRF52-Firmwares
 
@@ -58,7 +59,6 @@ This folder also contains a guide for testing new target-PCBs.
 - [nrf52_rf_test](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_rf_test): sends out 1 BLE-Packet per second (verify with an app like `RaMBLE`)
 - [nrf52_rf_survey](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_rf_survey): Link Matrix Generator - TX-Unit - sends packet with every possible P_TX, loops until stopped
 - [nrf52_deep_sleep](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_deep_sleep): practically turned off MCU with the lowest possible consumption
-
 - TODO: nrf52_spi_radio - default implementation to use nRF as a radio frontend
 
 ### MSP430FR-Firmwares
@@ -74,7 +74,8 @@ Step by step description for installing all prerequisites to compile the firmwar
 ### nRF52
 
 - Make sure you have the [GNU Arm Embedded Toolchain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) installed
-- If `arm-none-eabi-gcc` is not in your path, set the environment variable `GNU_INSTALL_ROOT` accordingly, e.g.: `export GNU_INSTALL_ROOT=/opt/toolchain/` (note the trailing foreslash)
+- If `arm-none-eabi-gcc` is not in your path, set the environment variable `GNU_INSTALL_ROOT` accordingly
+  - e.g. `export GNU_INSTALL_ROOT=/opt/toolchain/` (note the trailing foreslash)
 - Download the nRF5 SDK from [here.](https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK/Download) (You don't need a SoftDevice) and extract it
 - Set the environment variables `SDK_ROOT` to the corresponding absolute path, e.g.: `export SDK_ROOT=/home/user/nRF5_SDK_17.0.2_d674dde/`
 - run `make`
@@ -83,8 +84,10 @@ Refer to [the GitHub workflow](https://github.com/nes-lab/shepherd-targets/tree/
 
 ### MSP430
 
-To build the code, you'll need the gcc toolchain for the MSP430 microcontroller series. Refer to [the GitHub workflow](https://github.com/nes-lab/shepherd-targets/tree/main/.github/workflows/build_msp.yaml) for how to install the toolchain and build the project.
+To build the code, you'll need the gcc toolchain for the MSP430 microcontroller series.
+Refer to [the GitHub workflow](https://github.com/nes-lab/shepherd-targets/tree/main/.github/workflows/build_msp.yaml) for how to install the toolchain and build the project.
 
 ### Controlling the Node-ID
 
-When an `elf`-firmware contains a ``SHEPHERD_NODE_ID``, the variable will be patched with the actual target-ID before running the experiment. See the proposed [c-file](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_demo_rf/src/shepherd_node_id.c) for more information.
+When an `elf`-firmware contains a ``SHEPHERD_NODE_ID``, the variable will be patched with the actual target-ID before running the experiment.
+See the proposed [c-file](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_demo_rf/src/shepherd_node_id.c) for more information.

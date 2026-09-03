@@ -90,7 +90,8 @@ GPI_TRACE_CONFIG(logging, GPI_TRACE_BASE_SELECTION | GPI_TRACE_USER_SELECTION);
 #endif
 
 #define TRACE_MSG(...)                                                                             \
-    do {                                                                                           \
+    do                                                                                             \
+    {                                                                                              \
         GPI_TRACE_MSG(__VA_ARGS__);                                                                \
         TRACE_AUTO_FLUSH();                                                                        \
     }                                                                                              \
@@ -442,8 +443,7 @@ static inline size_t _print(const char *s)
 #ifndef __OPTIMIZE__
 __attribute__((optimize("Og")))
 #endif
-static size_t
-flush_log(void *start, void *end)
+static size_t flush_log(void *start, void *end)
 {
     // MAX_LINE_LEN can be used to split the output over multiple lines, each with length <= MAX_LINE_LEN.
     // This can be necessary depending on the host, e.g. FlockLab inserts garbage (timestamps)

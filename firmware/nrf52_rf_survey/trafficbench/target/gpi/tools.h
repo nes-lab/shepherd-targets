@@ -154,7 +154,7 @@
 ///		TEST_EXPANSION(CONCAT_NOEXP(A, B, C));			// -> 5
 ///		TEST_EXPANSION(CONCAT(CONCAT_NOEXP(A, B), C));	// -> 43
 /// @endcode
-#define TEST_EXPANSION(x)                                             _Pragma(STRINGIFY(GCC error STRINGIFY(x)))
+#define TEST_EXPANSION(x) _Pragma(STRINGIFY(GCC error STRINGIFY(x)))
 
 /// @}
 //**************************************************************************************************
@@ -181,11 +181,11 @@
 /// unknown callers.
 ///
 /// @sa VA_NUM(), VA_NARG(), VA_NARG_NOEXP()
-#define VA_NUM(a...)                                                  VA_NUM1(a)
+#define VA_NUM(a...)      VA_NUM1(a)
 
 /// @copydoc VA_NUM()
-#define VA_NARG(...)                                                  VA_NARG1(0, ##__VA_ARGS__, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
-#define VA_NARG1(...)                                                 VA_NARG2(__VA_ARGS__)
+#define VA_NARG(...)      VA_NARG1(0, ##__VA_ARGS__, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+#define VA_NARG1(...)     VA_NARG2(__VA_ARGS__)
 #define VA_NARG2(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, n, ...) n
 
 /// @copydoc VA_NUM()
@@ -198,7 +198,7 @@
 /// int x = VA_NARG(TEST);          // x = 2
 /// int x = VA_NARG_NOEXP(TEST);    // x = 1
 /// @endcode
-#define VA_NARG_NOEXP(...)                                            VA_NARG2(0, ##__VA_ARGS__, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+#define VA_NARG_NOEXP(...) VA_NARG2(0, ##__VA_ARGS__, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
 
 /// @brief Get size of variadic args (\__VA_ARGS__) in a function-like preprocessor macro.
 /// @details
@@ -210,7 +210,7 @@
 /// if required).
 /// @impdetails VA_SIZE() depends on the platform-specific VA_SIZE_GRANULARITY, which must be
 /// configured carefully to be consistent with the generated machine code.
-#define VA_SIZE(a...)                                                 VA_SIZE1(a)
+#define VA_SIZE(a...)      VA_SIZE1(a)
 
 /// @brief Expand and return i-th argument (i.e. i-th element of a comma-separated list).
 /// @details
@@ -219,7 +219,7 @@
 /// if required).
 //
 //  internal: two-step approach is necessary (do not remove it!)
-#define VA_ARG_i(i, ...)                                              VA_ARG##i(__VA_ARGS__)
+#define VA_ARG_i(i, ...)   VA_ARG##i(__VA_ARGS__)
 
 /// @}
 //**************************************************************************************************
@@ -285,9 +285,7 @@
 //#define ASSERT_CT_STATIC(condition, ...)	ASSERT_CT_STATIC2(__COUNTER__, condition, __VA_ARGS__)
 #define ASSERT_CT_STATIC(condition, ...)                                                           \
     static inline void CONCAT(assert_dummy_, __COUNTER__)(void)                                    \
-    {                                                                                              \
-        ASSERT_CT(condition, ##__VA_ARGS__);                                                       \
-    }
+    { ASSERT_CT(condition, ##__VA_ARGS__); }
 
 /// @brief compile-time assertion warning inside a function body.
 /// @details ASSERT_CT_WARN() is equivalent to ASSERT_CT(), but generates a warning instead of an error.
@@ -296,7 +294,8 @@
 // Workaround for MSPGCC version <= 4.6.3, GCC diagnostic push/pop commands are ignored
 #if ((__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__) <= 40603)
   #define ASSERT_CT_WARN(condition, ...)                                                           \
-      do {                                                                                         \
+      do                                                                                           \
+      {                                                                                            \
           _Pragma("GCC diagnostic warning \"-Wpadded\"");                                          \
           struct T_                                                                                \
           {                                                                                        \
@@ -308,7 +307,8 @@
       while (0)
 #else
   #define ASSERT_CT_WARN(condition, ...)                                                           \
-      do {                                                                                         \
+      do                                                                                           \
+      {                                                                                            \
           _Pragma("GCC diagnostic push");                                                          \
           _Pragma("GCC diagnostic warning \"-Wpadded\"");                                          \
           struct T_                                                                                \
@@ -327,9 +327,7 @@
 /// @sa ASSERT_CT_WARN(), ASSERT_CT_STATIC()
 #define ASSERT_CT_WARN_STATIC(condition, ...)                                                      \
     static inline void CONCAT(assert_dummy_, __COUNTER__)(void)                                    \
-    {                                                                                              \
-        ASSERT_CT_WARN(condition, ##__VA_ARGS__);                                                  \
-    }
+    { ASSERT_CT_WARN(condition, ##__VA_ARGS__); }
 
 /// @brief determine if x is a constant expression.
 /// @details A common use case for IS_CONST_EXPRESSION() is to ensure that some macro `M()` can be
@@ -347,7 +345,8 @@
 /// a warning message whenever ASSERT() cannot be resolved into a compile-time assertion.
 /// This can be used as a hint to either rework the condition or explicitly switch to assert().
 #define ASSERT(condition, ...)                                                                     \
-    do {                                                                                           \
+    do                                                                                             \
+    {                                                                                              \
         if (__builtin_constant_p(condition))                                                       \
         {                                                                                          \
             /* here we use variable-length arrays, a feature introduced with C99 */                \
@@ -639,50 +638,50 @@ static ALWAYS_INLINE void gpi_reorder_barrier(void) { __asm__ volatile("" : : : 
 // detect if argument (or arg list) is present by evaluating the size of its stringification
 // internal: accommodate to __VA_OPT__() (ISO C++2a) after that has become common
 //#define VA_IS(a...) 		(sizeof(STRINGIFY(#a)) > 3)	// "\"a\"" = {\", a, \", \0}
-#define VA_IS(a...)                                          (sizeof(#a) > 1)
+#define VA_IS(a...)          (sizeof(#a) > 1)
 
 // successively count the arguments
 // note: we cannot do things like #define VA_NUM(a,b...) (VA_IS(a) + VA_NUM(b)) because
 // preprocessor avoids "self-expansion". Therefore the macros have to be unrolled.
-#define VA_NUM1(a...)                                        (VA_IS(a) ? 1 + VA_NUM2(a) : 0)
-#define VA_NUM2(a, b...)                                     (VA_IS(b) ? 1 + VA_NUM3(b) : 0)
-#define VA_NUM3(b, c...)                                     (VA_IS(c) ? 1 + VA_NUM4(c) : 0)
-#define VA_NUM4(c, d...)                                     (VA_IS(d) ? 1 + VA_NUM5(d) : 0)
-#define VA_NUM5(d, e...)                                     (VA_IS(e) ? 1 + VA_NUM6(e) : 0)
-#define VA_NUM6(e, f...)                                     (VA_IS(f) ? 1 + VA_NUM7(f) : 0)
-#define VA_NUM7(f, g...)                                     (VA_IS(g) ? 1 + VA_NUM8(g) : 0)
-#define VA_NUM8(g, h...)                                     (VA_IS(h) ? 1 + VA_NUM9(h) : 0)
-#define VA_NUM9(h, i...)                                     (VA_IS(i) ? 1 + VA_NUM10(i) : 0)
-#define VA_NUM10(i, j...)                                    (VA_IS(j) ? 1 + VA_NUM11(j) : 0)
-#define VA_NUM11(j, k...)                                    ASSERT_CT_EVAL(!VA_IS(k), VA_NUM_overflow)
+#define VA_NUM1(a...)        (VA_IS(a) ? 1 + VA_NUM2(a) : 0)
+#define VA_NUM2(a, b...)     (VA_IS(b) ? 1 + VA_NUM3(b) : 0)
+#define VA_NUM3(b, c...)     (VA_IS(c) ? 1 + VA_NUM4(c) : 0)
+#define VA_NUM4(c, d...)     (VA_IS(d) ? 1 + VA_NUM5(d) : 0)
+#define VA_NUM5(d, e...)     (VA_IS(e) ? 1 + VA_NUM6(e) : 0)
+#define VA_NUM6(e, f...)     (VA_IS(f) ? 1 + VA_NUM7(f) : 0)
+#define VA_NUM7(f, g...)     (VA_IS(g) ? 1 + VA_NUM8(g) : 0)
+#define VA_NUM8(g, h...)     (VA_IS(h) ? 1 + VA_NUM9(h) : 0)
+#define VA_NUM9(h, i...)     (VA_IS(i) ? 1 + VA_NUM10(i) : 0)
+#define VA_NUM10(i, j...)    (VA_IS(j) ? 1 + VA_NUM11(j) : 0)
+#define VA_NUM11(j, k...)    ASSERT_CT_EVAL(!VA_IS(k), VA_NUM_overflow)
 //#define VA_NUM11(j,k...)	(VA_IS(k) ? -10 - __LINE__ : 0)
 
 // get size of argument, 0 if there is no argument
-#define VA_SIZEOF(a...)                                      (sizeof((void) (uint8_t) 1, ##a) - 1 + VA_IS(a))
+#define VA_SIZEOF(a...)      (sizeof((void) (uint8_t) 1, ##a) - 1 + VA_IS(a))
 
 // pad size to var_args granularity (typically machine word size)
-#define VA_SIZEOF_PAD(a...)                                  ((VA_SIZEOF(a) + VA_SIZE_GRANULARITY - 1) & ~(VA_SIZE_GRANULARITY - 1))
+#define VA_SIZEOF_PAD(a...)  ((VA_SIZEOF(a) + VA_SIZE_GRANULARITY - 1) & ~(VA_SIZE_GRANULARITY - 1))
 
 // successively count the size of the arguments
 // note: preprocessor avoids "self-expansion", therefore the macros have to be unrolled
-#define VA_SIZE1(a...)                                       (VA_IS(a) ? VA_SIZE2(a) : 0)
-#define VA_SIZE2(a, b...)                                    (VA_SIZEOF_PAD(a) + (VA_IS(b) ? VA_SIZE3(b) : 0))
-#define VA_SIZE3(b, c...)                                    (VA_SIZEOF_PAD(b) + (VA_IS(c) ? VA_SIZE4(c) : 0))
-#define VA_SIZE4(c, d...)                                    (VA_SIZEOF_PAD(c) + (VA_IS(d) ? VA_SIZE5(d) : 0))
-#define VA_SIZE5(d, e...)                                    (VA_SIZEOF_PAD(d) + (VA_IS(e) ? VA_SIZE6(e) : 0))
-#define VA_SIZE6(e, f...)                                    (VA_SIZEOF_PAD(e) + (VA_IS(f) ? VA_SIZE7(f) : 0))
-#define VA_SIZE7(f, g...)                                    (VA_SIZEOF_PAD(f) + (VA_IS(g) ? VA_SIZE8(g) : 0))
-#define VA_SIZE8(g, h...)                                    (VA_SIZEOF_PAD(g) + (VA_IS(h) ? VA_SIZE9(h) : 0))
-#define VA_SIZE9(h, i...)                                    (VA_SIZEOF_PAD(h) + (VA_IS(i) ? VA_SIZE10(i) : 0))
-#define VA_SIZE10(i, j...)                                   (VA_SIZEOF_PAD(i) + (VA_IS(j) ? VA_SIZE11(j) : 0))
-#define VA_SIZE11(j, k...)                                   (VA_SIZEOF_PAD(j) + ASSERT_CT_EVAL(!VA_IS(k), VA_SIZE_overflow))
+#define VA_SIZE1(a...)       (VA_IS(a) ? VA_SIZE2(a) : 0)
+#define VA_SIZE2(a, b...)    (VA_SIZEOF_PAD(a) + (VA_IS(b) ? VA_SIZE3(b) : 0))
+#define VA_SIZE3(b, c...)    (VA_SIZEOF_PAD(b) + (VA_IS(c) ? VA_SIZE4(c) : 0))
+#define VA_SIZE4(c, d...)    (VA_SIZEOF_PAD(c) + (VA_IS(d) ? VA_SIZE5(d) : 0))
+#define VA_SIZE5(d, e...)    (VA_SIZEOF_PAD(d) + (VA_IS(e) ? VA_SIZE6(e) : 0))
+#define VA_SIZE6(e, f...)    (VA_SIZEOF_PAD(e) + (VA_IS(f) ? VA_SIZE7(f) : 0))
+#define VA_SIZE7(f, g...)    (VA_SIZEOF_PAD(f) + (VA_IS(g) ? VA_SIZE8(g) : 0))
+#define VA_SIZE8(g, h...)    (VA_SIZEOF_PAD(g) + (VA_IS(h) ? VA_SIZE9(h) : 0))
+#define VA_SIZE9(h, i...)    (VA_SIZEOF_PAD(h) + (VA_IS(i) ? VA_SIZE10(i) : 0))
+#define VA_SIZE10(i, j...)   (VA_SIZEOF_PAD(i) + (VA_IS(j) ? VA_SIZE11(j) : 0))
+#define VA_SIZE11(j, k...)   (VA_SIZEOF_PAD(j) + ASSERT_CT_EVAL(!VA_IS(k), VA_SIZE_overflow))
 //#define VA_SIZE11(j,k...)	(VA_SIZEOF_PAD(j) + (VA_IS(k) ? -80 - __LINE__ : 0))
 
 // return i-th argument (i.e. i-th element of a comma-separated list).
 // for detail see VA_ARG_i().
 // note: index i is 0-based
-#define VA_ARG0(_0, ...)                                     _0
-#define VA_ARG1(_0, _1, ...)                                 _1
+#define VA_ARG0(_0, ...)     _0
+#define VA_ARG1(_0, _1, ...) _1
 #define VA_ARG2(_0, _1, _2, ...)                             _2
 #define VA_ARG3(_0, _1, _2, _3, ...)                         _3
 #define VA_ARG4(_0, _1, _2, _3, _4, ...)                     _4
@@ -694,10 +693,10 @@ static ALWAYS_INLINE void gpi_reorder_barrier(void) { __asm__ volatile("" : : : 
 
 // return MSB of a
 #define MSB2(a)                                              ((a) & 2 ? 1 : ((a) & 1 ? 0 : -1))
-#define MSB4(a)                                              ((uint32_t) (a) >= 0x4 ? 2 + MSB2((uint32_t) (a) >> 2) : MSB2(a))
-#define MSB8(a)                                              ((uint32_t) (a) >= 0x10 ? 4 + MSB4((uint32_t) (a) >> 4) : MSB4(a))
-#define MSB16(a)                                             ((uint32_t) (a) >= 0x100 ? 8 + MSB8((uint32_t) (a) >> 8) : MSB8(a))
-#define MSB32(a)                                             ((uint32_t) (a) >= 0x10000 ? 16 + MSB16((uint32_t) (a) >> 16) : MSB16(a))
+#define MSB4(a)  ((uint32_t) (a) >= 0x4 ? 2 + MSB2((uint32_t) (a) >> 2) : MSB2(a))
+#define MSB8(a)  ((uint32_t) (a) >= 0x10 ? 4 + MSB4((uint32_t) (a) >> 4) : MSB4(a))
+#define MSB16(a) ((uint32_t) (a) >= 0x100 ? 8 + MSB8((uint32_t) (a) >> 8) : MSB8(a))
+#define MSB32(a) ((uint32_t) (a) >= 0x10000 ? 16 + MSB16((uint32_t) (a) >> 16) : MSB16(a))
 //#define MSB64(a)			( (uint64_t)(a) >= UINT64_C(0x100000000) ? 32 + MSB32((uint64_t)(a) >> 32) : MSB32(a) )
 
 //**************************************************************************************************

@@ -129,8 +129,8 @@ typedef struct Gpi_Trace_Msg_tag
 
     // use int64_t to ensure 8-byte-alignment (as defined in ARM ABI, document ARM IHI 0042F)
     int64_t         var_args[(GPI_TRACE_BUFFER_ENTRY_SIZE - sizeof(Gpi_Hybrid_Tick) -
-                      sizeof(const char *)) /
-                     sizeof(int64_t)];
+                              sizeof(const char *)) /
+                             sizeof(int64_t)];
 
 } Gpi_Trace_Msg;
 

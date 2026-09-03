@@ -419,7 +419,8 @@ _GPI_TRACE_FILTER_PATH_x(0, 1) _GPI_TRACE_FILTER_PATH_x(1, 2) _GPI_TRACE_FILTER_
               GPI_TRACE_SIZE_SCOPE) "s"
 
   #define GPI_TRACE_MSG_FAST(group, msg, ...)                                                                  \
-      do {                                                                                                     \
+      do                                                                                                       \
+      {                                                                                                        \
           if (gpi_trace_module_desc.msg_config & (group))                                                      \
           {                                                                                                    \
               const uint32_t _mode_ =                                                                          \
@@ -503,7 +504,8 @@ _GPI_TRACE_FILTER_PATH_x(0, 1) _GPI_TRACE_FILTER_PATH_x(1, 2) _GPI_TRACE_FILTER_
   /// print log message
   #if (GPI_TRACE_MODE_IS_FLUSH_AUTO)
     #define GPI_TRACE_MSG(group, msg, ...)                                                         \
-        do {                                                                                       \
+        do                                                                                         \
+        {                                                                                          \
             GPI_TRACE_MSG_FAST(group, msg, ##__VA_ARGS__);                                         \
             GPI_TRACE_FLUSH();                                                                     \
         }                                                                                          \
@@ -514,7 +516,8 @@ _GPI_TRACE_FILTER_PATH_x(0, 1) _GPI_TRACE_FILTER_PATH_x(1, 2) _GPI_TRACE_FILTER_
 
   /// log function call/entry
   #define GPI_TRACE_FUNCTION_FAST()                                                                \
-      do {                                                                                         \
+      do                                                                                           \
+      {                                                                                            \
           if (gpi_trace_module_desc.msg_config & GPI_TRACE_LOG_SCOPE)                              \
               GPI_TRACE_MSG_FAST(GPI_TRACE_LOG_FUNCTION_ENTRY, "-> entry");                        \
           else GPI_TRACE_MSG_FAST(GPI_TRACE_LOG_FUNCTION_ENTRY, "-> %s()", __func__);              \
@@ -524,7 +527,8 @@ _GPI_TRACE_FILTER_PATH_x(0, 1) _GPI_TRACE_FILTER_PATH_x(1, 2) _GPI_TRACE_FILTER_
   /// @copybrief GPI_TRACE_FUNCTION_FAST
   #if (GPI_TRACE_MODE_IS_FLUSH_AUTO)
     #define GPI_TRACE_FUNCTION()                                                                   \
-        do {                                                                                       \
+        do                                                                                         \
+        {                                                                                          \
             GPI_TRACE_FUNCTION_FAST();                                                             \
             GPI_TRACE_FLUSH();                                                                     \
         }                                                                                          \
@@ -566,7 +570,8 @@ _GPI_TRACE_FILTER_PATH_x(0, 1) _GPI_TRACE_FILTER_PATH_x(1, 2) _GPI_TRACE_FILTER_
   // match the return type of the function.
   //
   #define GPI_TRACE_RETURN_INTERNAL(flush, ...)                                                    \
-      do {                                                                                         \
+      do                                                                                           \
+      {                                                                                            \
           typeof(gpi_trace_dummy_function(), ##__VA_ARGS__) r_ =                                   \
                   (gpi_trace_dummy_function(), ##__VA_ARGS__);                                     \
                                                                                                    \
@@ -607,7 +612,8 @@ _GPI_TRACE_FILTER_PATH_x(0, 1) _GPI_TRACE_FILTER_PATH_x(1, 2) _GPI_TRACE_FILTER_
     ///< @copybrief GPI_TRACE_RETURN_FAST
 
   #define GPI_TRACE_RETURN_MSG_INTERNAL(msg, ...)                                                  \
-      do {                                                                                         \
+      do                                                                                           \
+      {                                                                                            \
           if (gpi_trace_module_desc.msg_config & GPI_TRACE_LOG_SCOPE)                              \
               GPI_TRACE_MSG_FAST(GPI_TRACE_LOG_FUNCTION_RETURN_MSG, "<- return " msg,              \
                                  ##__VA_ARGS__);                                                   \
@@ -619,7 +625,8 @@ _GPI_TRACE_FILTER_PATH_x(0, 1) _GPI_TRACE_FILTER_PATH_x(1, 2) _GPI_TRACE_FILTER_
 
   /// log function return/exit with specific message (e.g. return value format)
   #define GPI_TRACE_RETURN_MSG_FAST(r, msg, ...)                                                   \
-      do {                                                                                         \
+      do                                                                                           \
+      {                                                                                            \
           GPI_TRACE_RETURN_MSG_INTERNAL(msg, ##__VA_ARGS__);                                       \
           return r;                                                                                \
       }                                                                                            \
@@ -628,7 +635,8 @@ _GPI_TRACE_FILTER_PATH_x(0, 1) _GPI_TRACE_FILTER_PATH_x(1, 2) _GPI_TRACE_FILTER_
   /// @copybrief GPI_TRACE_RETURN_MSG_FAST
   #if (GPI_TRACE_MODE_IS_FLUSH_AUTO)
     #define GPI_TRACE_RETURN_MSG(r, msg, ...)                                                      \
-        do {                                                                                       \
+        do                                                                                         \
+        {                                                                                          \
             GPI_TRACE_RETURN_MSG_INTERNAL(msg, ##__VA_ARGS__);                                     \
             GPI_TRACE_FLUSH();                                                                     \
             return r;                                                                              \

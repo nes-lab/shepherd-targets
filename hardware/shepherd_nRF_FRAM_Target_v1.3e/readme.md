@@ -2,12 +2,14 @@
 
 Shared pins between MCUs and Observers with **Cape V2.5 (deployed in near future / mid 2025)**.
 
-**The testbed still uses Cape v2.4 as of 2025-04. See 2nd table below for that mapping.**
+~~The testbed still uses Cape v2.4 as of 2025-04. See 2nd table below for that mapping.~~
 
 **Note**:
 
 - GPIO12 to GPIO15 are not recordable by the testbed with cape V2.5, as pins on the SBC are all used up
-- The nRF has no outer reset line - so configuring one could keep the MCU in permanent reset. Code for the nRF52-DK may use P0.21 for reset - it is actively used for UART-Rx here.
+- The nRF has no outer reset line
+  - configuring one could keep the MCU in permanent reset
+  - Code for the nRF52-DK may use P0.21 for reset - it is actively used for UART-Rx here.
 - A, B, C in DIR-Column refer to switch-groups. 1, 2 and/or 4 bits can be reversed to talk to the target.
 - D, E are switch-groups needed for programming
 
@@ -40,7 +42,7 @@ Shared pins between MCUs and Observers with **Cape V2.5 (deployed in near future
 |          | -     | I2C.SCL    | P1.08  | P6.5    |                             |
 |          | -     | I2C.SDA    | P0.06  | P6.4    |                             |
 |          | -     | RTC.INT    | P0.30  | P7.3    | shared, no fct for shp      |
-|          | -     | MAX.INT    | P0.30  | PJ.1    | shared, no fct for shp      |
+|          | -     | MAX.INT    | P0.25  | PJ.1    | shared, no fct for shp      |
 |          | -     | C2C.CLK    | P0.18  | P1.5    | msp.A0.CLK                  |
 |          | -     | C2C.CoPi   | P0.17  | P2.0    | msp.A0.CoPi                 |
 |          | -     | C2C.CiPo   | P0.14  | P2.1    | msp.A0.CiPo                 |
@@ -58,6 +60,7 @@ The 40-pin Edge-Connector of Target V1.3 has an adapter to interface the 2x9 Hea
 This keeps connections compatible to Target V1.0.
 
 **Note**:
+
 - A, B, C, D in DIR-Column refer to switch-groups
 - Shepherds GPIO8 (target-rx) will be re-assigned to PwrGoodL (BATOK is PwrGoodH)
 
@@ -112,11 +115,12 @@ Abs Max Ratings:
 A fitting shottky diode is used to burn energy above 3.7V.
 
 One PMEG10010ELR Diode is between V_target and 3V3:
-+ 0.0 V -> 6 pA (noise)
-+ 0.1 V -> 47 nA
-+ 0.2 V -> 2.3 uA
-+ 0.3 V -> 120 uA
-+ 0.4 V -> 4.83 mA
+
+- 0.0 V -> 6 pA (noise)
+- 0.1 V -> 47 nA
+- 0.2 V -> 2.3 uA
+- 0.3 V -> 120 uA
+- 0.4 V -> 4.83 mA
 
 ### Under-Voltage-Protection
 
@@ -242,7 +246,7 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test1.yaml
 
 NOTE: best done with inter-connector that only routes: pwr1, serial, programming-pins, pwr2
 Check UART output with logic analyzer or in shepherd recording.
-Behavior is described [here](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_testable).
+Behavior is described in [the firmware-directory](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_testable).
 
 ### Testing the Radio
 
@@ -254,7 +258,7 @@ sudo shepherd-sheep target-power -p A -v 3 --on
 sudo shepherd-sheep run /etc/shepherd/target_device_test2.yaml
 ```
 
-Behavior is described [here](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_rf_test).
+Behavior is described in [the firmware-directory](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_rf_test).
 
 ### Testing Power-consumption during sleep
 
@@ -291,13 +295,48 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
 - panel - move holes of bridges a bit further out
 - finished as v1.3e
 
-**Production of v1.3e**
+## Production of v1.3e
 
 - BOM for 30n with spare, 650 € @ Mouser
 - Panels for 30n, 214 € @ JLCPCB
 
 ## Errata & future Improvements
 
+- add reset line(s) to better handle soft-bricked MCUs
+  - needs 1-2x additional GPIO from Host (2 available) and Pins on target connector
+  - nRST of both MCUs could be combined to 1 Pin
+  - nRST is often default, could be negated on new target PCBs if needed
+  - current 40 Pin target-connector has two NC pins left
+- allow [using internal switching regulator from nRF to lower power-consumption](https://github.com/nes-lab/shepherd-targets/issues/42)
+  - current firmware is forward-compatible (but newer not backward-compat)
+  - add L 10uH & 15nH from DCC to DEC4 (1V3) and 1uF & 47nF to GND
+  - ~~HV add L 10uH from DCCH to VDD, remove connection between VDDH to VDD~~
+  - DK uses both, but MSP, RTC & NRF-VL limit voltage to max 3.8 V
+  - contra HV: current design directly connects HV- & LV-input
+- allow routing AUX-voltage (second output of DAC) to the same target port
+  - mimic V_Sense to allow developing better intermittent algorithms (allows sensing emulated V_harvest or V_storage_cap)
+  - needs one additional pin on target connector -> current 40 Pin target-connector has two NC pins left
+  - Needs one additional GPIO from Host -> two GPIO available for the analog switch (48, 117) - can be slow sysgpio
+- remove Copper below edge connector (if it stays)
+  - the connector should get a chamfer (as it breaks the expensive connector)
+  - alternative: switch to FPC or FFC, as it is cheaper
+- replace edge-connector with flex connector? (FPC or FCC / FFC)
+  - contra: current setup is rigid and easy to transport without a case
+  - pro: freely position targets in case
+  - pro: automatically rotation-safe
+  - pro: more usable GPIO on same 40x-Connector (needs less additional GND-Shielding)
+  - pro: easier to replace, cheaper,
+  - features to keep: rotation-safe & shielded (currently 12x extra GND)
+  - needed IO: 16 GPIO, 2 Voltages, 2 PwrGood, 4 Prog, 1+ GND => 25+ Pins
+    - +1x for aux voltage
+    - +1x for reset line (nRF & msp have nReset) -> 2 lines or negate if needed
+    - +2x-3x for I2C-EEPROM (Write-Protection)
+    - in total 5 pins extra
+  - 40 pin FFC/FPC, 0.5 mm Pitch, 1.5€ -> 05-40-A-0050-A-4-06-4-T-HF
+  - 40 pin connector has similar space req. as edge connector, 0.5 € per connector, FFC2B35-40-G
+- add small eeprom? allows identifying targets in testbed (device inventory can query itself)
+  - optional - when programmers are capable to read the UID of the MCUs (OpenOCD now can)
+  - needs 3 additional pins on target-port
 - BGA without paste? MSP-failure-rate stays ~ 20 %
   - low temp paste is harder to control - does not wet as good and needs manual fixes (almost on every PCB)
 - bridge to panel should be moved away from BGA
@@ -305,11 +344,10 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
 - QR Code can now be directly created in Altium
 - perforated breaking lines on panels (extension of milled line)
 - bridge to panel can be thinner
-- move LED a bit away from SMA
+- move LED away from SMA
 - pin 1 marking bigger on ICs
 - is there a paste-pad under the TS5A?
-- allow using internal switching regulator from nRF to lower power-consumption
-- **remove Copper below edge connector**
-  - the connector should get a chamfer (as it breaks the expensive connector)
-  - alternative: switch to FPC or FFC, as it is cheaper
-- add small eeprom? allows identifying targets in testbed (device inventory can query itself)
+
+TODO:
+
+- test connecting resets

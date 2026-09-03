@@ -32,7 +32,7 @@ Shared pins between MCUs and Observers with **Cape V2.5 (currently evaluated)**.
 |          | -     | I2C.SCL    | P1.08  | P6.5    |                             |
 |          | -     | I2C.SDA    | P0.06  | P6.4    |                             |
 |          | -     | RTC.INT    | P0.30  | P7.3    | shared, no fct for shp      |
-|          | -     | MAX.INT    | P0.30  | PJ.1    | shared, no fct for shp      |
+|          | -     | MAX.INT    | P0.25  | PJ.1    | shared, no fct for shp      |
 |          | -     | C2C.CLK    | P0.18  | P1.5    | msp.A0.CLK                  |
 |          | -     | C2C.CoPi   | P0.17  | P2.0    | msp.A0.CoPi                 |
 |          | -     | C2C.CiPo   | P0.14  | P2.1    | msp.A0.CiPo                 |
@@ -72,6 +72,7 @@ The 40-pin Edge-Connector of Target V1.3 has an adapter to interface the 2x9 Hea
 | prog22  | <-D-> | SBW.IO   | -      | sbwtdio |                             |
 
 **Note**:
+
 - A, B, C, D in DIR-Column refer to switch-groups
 - Shepherds GPIO8 (target-rx) will be re-assigned to PwrGoodL (BATOK is PwrGoodH)
   - TODO: Resistor-Switch on adapter available, but software not ready yet
@@ -110,11 +111,12 @@ Abs Max Ratings:
 A fitting shottky diode is used to burn energy above 3.7V.
 
 One PMEG10010ELR Diode is between V_target and 3V3:
-+ 0.0 V -> 6 pA (noise)
-+ 0.1 V -> 47 nA
-+ 0.2 V -> 2.3 uA
-+ 0.3 V -> 120 uA
-+ 0.4 V -> 4.83 mA
+
+- 0.0 V -> 6 pA (noise)
+- 0.1 V -> 47 nA
+- 0.2 V -> 2.3 uA
+- 0.3 V -> 120 uA
+- 0.4 V -> 4.83 mA
 
 ### Under-Voltage-Protection
 
@@ -122,8 +124,8 @@ One PMEG10010ELR Diode is between V_target and 3V3:
 - consumption drops when going above 1.69 V
 - consumption rises when going below 1.58 V
 - tested 13 nodes range from
-   - ON = 1.63 to 1.69 V
-   - OFF = 1.58 to 1.60 V
+  - ON = 1.63 to 1.69 V
+  - OFF = 1.58 to 1.60 V
 
 Solution
 
@@ -224,13 +226,13 @@ See `.wxmx`-maxima-file for more details.
   - 2x10 Angled Socket: SQT-110-01-F-D-RA -> new 2x13: SQT-113-01-F-D-RA -> without Angle: SQT-113-01-F-D
   - 2x10 PinHeader: 2PH2-20-UA -> new 2x13 only available from samtec, but they fit next to each other -> 2PH2-16-UA + 2PH2-10-UA
   - width: 20.35/10*13=26.5mm or better 20.35/11*14=25.9mm, MAX of Cape is 54.7/2=27.35mm
-  - PCB-Edge-Connectors: https://www.mouser.de/c/connectors/card-edge-connectors/?number%20of%20positions=26%20Position%7C~30%20Position&instock=y&active=y&sort=pricing
+  - PCB-Edge-Connectors: <https://www.mouser.de/c/connectors/card-edge-connectors/?number%20of%20positions=26%20Position%7C~30%20Position&instock=y&active=y&sort=pricing>
     - PCIe 1x is cheap, has 1 mm distance and comes as TH & SMD, but it is designed for thick PCBs
     - HSEC8-120-01-S-DV-A-GR-K: 40Con, Guide Rails 7x20.6mm 11.75mm high
     - HSEC8-120-01-S-DV-A-K: without guide rails only 7.8mm high
     - **HSEC8-120-01-L-DV-A-K-TR**: same, but cheaper
-  - ~~FFC/FPC-Con~~: https://www.mouser.de/c/connectors/ffc-fpc/ffc-fpc-connectors/?number%20of%20positions=26%20Position%7C~28%20Position%7C~30%20Position%7C~32%20Position&instock=y&active=y
-  - ~~FFC/FPC-Cable~~: https://www.mouser.de/c/connectors/ffc-fpc/ffc-fpc-jumper-cables/?number%20of%20conductors=26%20Conductor%7C~28%20Conductor%7C~30%20Conductor%7C~32%20Conductor&instock=y&active=y
+  - ~~FFC/FPC-Con~~: <https://www.mouser.de/c/connectors/ffc-fpc/ffc-fpc-connectors/?number%20of%20positions=26%20Position%7C~28%20Position%7C~30%20Position%7C~32%20Position&instock=y&active=y>
+  - ~~FFC/FPC-Cable~~: <https://www.mouser.de/c/connectors/ffc-fpc/ffc-fpc-jumper-cables/?number%20of%20conductors=26%20Conductor%7C~28%20Conductor%7C~30%20Conductor%7C~32%20Conductor&instock=y&active=y>
 - current-limit LED0 (MSP430 is lower prio, so it gets 470R)
 - **NEW GPIO**
   - GP10 P0.12  P5.0 (UCB1SIMO/SDA)
@@ -326,7 +328,7 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test1.yaml
 
 NOTE: best done with inter-connector that only routes: pwr1, serial, programming-pins, pwr2
 Check UART output with logic analyzer or in shepherd recording.
-Behavior is described [here](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_testable).
+Behavior is described in [the firmware-directory](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_testable).
 
 ### Testing the Radio
 
@@ -338,7 +340,7 @@ sudo shepherd-sheep target-power -p A -v 3 --on
 sudo shepherd-sheep run /etc/shepherd/target_device_test2.yaml
 ```
 
-Behavior is described [here](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_rf_test).
+Behavior is described in [the firmware-directory](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_rf_test).
 
 ### Testing Power-consumption during sleep
 

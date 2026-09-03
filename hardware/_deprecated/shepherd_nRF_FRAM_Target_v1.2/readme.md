@@ -32,6 +32,7 @@ Shared pins between MCUs and Observer, **Cape V2.5 (not produced yet)**
 |          |       | C2C.GPIO | P0.15  | PJ.2    |                             |
 
 **Note**:
+
 - SHP-HDR Spec of Cape V2.5
 - Testbed has still v2.4, 2024-08 - see table for target v1.0
 
@@ -81,7 +82,7 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test1.yaml
 
 NOTE: best done with interconnector that only routes: pwr1, serial, programming-pins, pwr2
 Check UART output with logic analyzer or in shepherd recording.
-Behavior is described [here](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_testable).
+Behavior is described in [the firmware-directory](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_testable).
 
 ### Testing the Radio
 
@@ -93,7 +94,7 @@ sudo shepherd-sheep target-power -p A -v 3 --on
 sudo shepherd-sheep run /etc/shepherd/target_device_test2.yaml
 ```
 
-Behavior is described [here](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_rf_test).
+Behavior is described in [the firmware-directory](https://github.com/nes-lab/shepherd-targets/tree/main/firmware/nrf52_rf_test).
 
 ### Testing Power-consumption during sleep
 
@@ -123,7 +124,6 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
   - Target 7 with Stub-Antenna: -64 dBm in, -62 dBm above
   - Target 18 with Chip-Antenna: -67 to -72 dBm in, -69 to -72 dBm above
   - Various far points in flat show: 80-100 with chip antenna, 85-90 with stub, 65-83 with dedicated Antenna
-
 
 ```A
 GPIO WATCHER
@@ -284,30 +284,30 @@ Received all 21 shared pins!!
 ### Changes from prev Version
 
 - two bat-status pins from cape would be better
-    - goal: offer hysteresis - working good for riotee so far
-    - second goal: compatibility with riotee-SDK for targets
+  - goal: offer hysteresis - working good for riotee so far
+  - second goal: compatibility with riotee-SDK for targets
 - shared gpio would benefit from external PU/PD-Resistors, so current mcu-code can be more independent
-    - problem: msp430 is reacting with high currents for floating pins
-    - current solution: activate internal PD-Res in msp430 - at least for our sleep- & FRAM-firmware
+  - problem: msp430 is reacting with high currents for floating pins
+  - current solution: activate internal PD-Res in msp430 - at least for our sleep- & FRAM-firmware
 - add a system to identify pcb? OW-nodeid or i2c-rom?
 - ditch PAN1780 module to allow an external antenna (rf-performance of pan-module is sub-par)
 
 #### Details
 
 - additional parts to order
-  - rpi pico - https://www.mouser.de/ProductDetail/Raspberry-Pi/SC0915?qs=T%252BzbugeAwjgnLi4azxXVFA%3D%3D
-  - rpi pico H https://www.mouser.de/ProductDetail/Raspberry-Pi/SC0917?qs=T%252BzbugeAwjjvYEYcRJk%252Bxw%3D%3D
-  - rpi pico W https://www.mouser.de/ProductDetail/Raspberry-Pi/SC0918?qs=T%252BzbugeAwjj9dgdBLZSmdg%3D%3D
-  - rpi 5 https://www.mouser.de/ProductDetail/Raspberry-Pi/SC1112?qs=HoCaDK9Nz5c86n0i5EQ%2FPA%3D%3D
-  - Antenna https://www.mouser.de/c/passive-components/antennas/?q=antenna%20sma&minimum%20frequency=2.4%20GHz%7C~2.41%20GHz~~2.45%20GHz&instock=y&NewSearch=1&rp=passive-components%2Fantennas%7C~Minimum%20Frequency&sort=pricing
-  - Antenna refinement https://www.mouser.de/c/passive-components/antennas/?q=antenna%20sma&antenna%20connector%20type=SMA%20Connector%7C~SMA%20Male~~SMA%20Plug&maximum%20frequency=2.48%20GHz~~2.5%20GHz&minimum%20frequency=2.4%20GHz%7C~2.41%20GHz~~2.45%20GHz&instock=y&sort=pricing&NewSearch=1&rp=passive-components%2Fantennas%7C~Minimum%20Frequency%7C~Maximum%20Frequency%7C~Antenna%20Connector%20Type
+  - rpi pico - <https://www.mouser.de/ProductDetail/Raspberry-Pi/SC0915?qs=T%252BzbugeAwjgnLi4azxXVFA%3D%3D>
+  - rpi pico H <https://www.mouser.de/ProductDetail/Raspberry-Pi/SC0917?qs=T%252BzbugeAwjjvYEYcRJk%252Bxw%3D%3D>
+  - rpi pico W <https://www.mouser.de/ProductDetail/Raspberry-Pi/SC0918?qs=T%252BzbugeAwjj9dgdBLZSmdg%3D%3D>
+  - rpi 5 <https://www.mouser.de/ProductDetail/Raspberry-Pi/SC1112?qs=HoCaDK9Nz5c86n0i5EQ%2FPA%3D%3D>
+  - Antenna <https://www.mouser.de/c/passive-components/antennas/?q=antenna%20sma&minimum%20frequency=2.4%20GHz%7C~2.41%20GHz~~2.45%20GHz&instock=y&NewSearch=1&rp=passive-components%2Fantennas%7C~Minimum%20Frequency&sort=pricing>
+  - Antenna refinement <https://www.mouser.de/c/passive-components/antennas/?q=antenna%20sma&antenna%20connector%20type=SMA%20Connector%7C~SMA%20Male~~SMA%20Plug&maximum%20frequency=2.48%20GHz~~2.5%20GHz&minimum%20frequency=2.4%20GHz%7C~2.41%20GHz~~2.45%20GHz&instock=y&sort=pricing&NewSearch=1&rp=passive-components%2Fantennas%7C~Minimum%20Frequency%7C~Maximum%20Frequency%7C~Antenna%20Connector%20Type>
   - HDR2x10 RM2 737-2PH2-20-UA
   - rare cape-parts
 - gpio.9 is now dedicated gpio and not bat_OK anymore (free from LED.0)
 - gpio.10 was LED.1, is now LED.0
 - `VCAP_SENSE` was floating, now V_Target
-  - https://github.com/NessieCircuits/Riotee_MSP430Fram/blob/main/src/main.c
-  - https://github.com/NessieCircuits/Riotee_SDK/blob/main/core/include/riotee.h
+  - <https://github.com/NessieCircuits/Riotee_MSP430Fram/blob/main/src/main.c>
+  - <https://github.com/NessieCircuits/Riotee_SDK/blob/main/core/include/riotee.h>
   - `PIN_VCAP_SENSE`, `AIN_VCAP_SENSE` are configured, but unused by riotee (FRAM-FW & SDK)
 - `PIN_MAX_INT` is left floating (unchanged) as it is configured, but unused by SDK & not avail on target
 - discrete nRF52 IC,
@@ -331,6 +331,7 @@ Received all 21 shared pins!!
 - replace msp430 128kb (-FR5962) with riotees 256kb (-FR5994),
 
 Skipped:
+
 - PD-Res for internal Pins - 10 M?
 
 ### Riotee-SDK-patching
