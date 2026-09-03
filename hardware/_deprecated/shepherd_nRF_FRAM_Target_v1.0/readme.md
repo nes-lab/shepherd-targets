@@ -31,6 +31,7 @@ Shared pins between MCUs
 |         |       | C2C.GPIO | P0.15  | PJ.2    |                             |
 
 **Note**:
+
 - SHP-HDR Spec of Cape V2.4
 - Pins P[3:12] on Target-Header of V1.0 are GPIO[0:8] & BATOK
 

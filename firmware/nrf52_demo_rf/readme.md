@@ -10,4 +10,4 @@ An App like `LightBlue` or `RaMBLE` can be used to monitor rf-activity.
 
 ## Source
 
-https://github.com/geissdoerfer/shepherd-nrf52-demo
+<https://github.com/geissdoerfer/shepherd-nrf52-demo>

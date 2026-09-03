@@ -61,6 +61,7 @@ python3 gen_rf_survey.py
 ```
 
 for the actual run:
+
 ```Shell
 shepherd-herd -v run -a /var/shepherd/content/task/nes_lab/tasks_rf_survey.yaml
 # this takes ~ 8min and will exit after. Then we collect the data
@@ -69,7 +70,7 @@ scp
 
 scp /var/shepherd/recordings/
 
-## TODO:
+## TODO
 
 - vary send-power (?)
 - look for other IO used by TB
@@ -91,4 +92,4 @@ scp /var/shepherd/recordings/
 
 ## Source
 
-https://gitlab.com/nes-lab/trafficbench
+<https://gitlab.com/nes-lab/trafficbench>

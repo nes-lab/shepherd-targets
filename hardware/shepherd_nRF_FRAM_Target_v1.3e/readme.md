@@ -58,6 +58,7 @@ The 40-pin Edge-Connector of Target V1.3 has an adapter to interface the 2x9 Hea
 This keeps connections compatible to Target V1.0.
 
 **Note**:
+
 - A, B, C, D in DIR-Column refer to switch-groups
 - Shepherds GPIO8 (target-rx) will be re-assigned to PwrGoodL (BATOK is PwrGoodH)
 
@@ -112,11 +113,12 @@ Abs Max Ratings:
 A fitting shottky diode is used to burn energy above 3.7V.
 
 One PMEG10010ELR Diode is between V_target and 3V3:
-+ 0.0 V -> 6 pA (noise)
-+ 0.1 V -> 47 nA
-+ 0.2 V -> 2.3 uA
-+ 0.3 V -> 120 uA
-+ 0.4 V -> 4.83 mA
+
+- 0.0 V -> 6 pA (noise)
+- 0.1 V -> 47 nA
+- 0.2 V -> 2.3 uA
+- 0.3 V -> 120 uA
+- 0.4 V -> 4.83 mA
 
 ### Under-Voltage-Protection
 
@@ -345,4 +347,5 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
 - is there a paste-pad under the TS5A?
 
 TODO:
+
 - test connecting resets

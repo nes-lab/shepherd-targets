@@ -1,6 +1,6 @@
 # GPI
 
-NES Lab's Generic Platform Interface component (GPI)  ATTENTION: This (nes-tud/gpi) is an internal project. Do not add new users without care!
+NES Lab's Generic Platform Interface component (GPI) ATTENTION: This (nes-tud/gpi) is an internal project. Do not add new users without care!
 
 Main Repo: <https://github.com/nes-lab/gpi>
 

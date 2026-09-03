@@ -25,7 +25,6 @@ To learn more about TrafficBench, please read on. You can also have a look at ou
 [EWSN'22 demo abstract](https://nes-lab.org/wordpress/wp-content/uploads/2022/08/herrmann22trafficbench.pdf)
 to gain an impression.
 
-
 ## Installation
 
 In the following we focus on Linux. However, the main host tools are written in Python,
@@ -71,11 +70,10 @@ Specifically,
 * Starting ViTables fails with error message `AttributeError: module 'collections' has no attribute 'Iterable'`.
 
 Both problems are known and fixed in the development versions of Glue and ViTables
-(see https://github.com/glue-viz/glue/pull/2266 and https://github.com/uvemas/ViTables/pull/109 for details),
+(see <https://github.com/glue-viz/glue/pull/2266> and <https://github.com/uvemas/ViTables/pull/109> for details),
 so hopefully there will be updates in the future. For the moment we recommend to **use Python 3.8**.
 (Alternatively, you can incorporate the fixes manually into the installed software versions.
 Do not use Glue > 1.2.4 because this causes other issues (see [requirements.txt](host/requirements.txt) for details)).
-
 
 ## Usage
 
@@ -96,8 +94,7 @@ development boards forming a small wireless network (using three boards is perfe
 a single board is enough to test the tool chain).
 To do so, use the following steps:
 
-1. Start SES and open the project [`target/nrf52840/project_ses/TrafficBench.emProject`](
-   target/nrf52840/project_ses/TrafficBench.emProject).
+1. Start SES and open the project [`target/nrf52840/project_ses/TrafficBench.emProject`](target/nrf52840/project_ses/TrafficBench.emProject).
 
 2. Make sure to select "Release" as the active configuration (do not use "Release_FlockLab").
    Compile the project and program the executable into all boards.
@@ -259,7 +256,6 @@ To use your own schedules on FlockLab:
   to understand how node IDs are mapped from the schedule to the FlockLab observer IDs
   (see also [Node ID Mapping](#node-id-mapping)).
 
-
 ## Important Concepts
 
 ### Communication Scheduling and Checkpoints
@@ -341,7 +337,6 @@ schedule.[^fn-mapping]
 [^fn-mapping]: The latter could also be understood as selecting a node for each 'role'
 defined in the schedule.
 
-
 ## Project Status, Problems and Questions
 
 TrafficBench is an early stage project. We are quite confident that the core features
@@ -370,14 +365,12 @@ In case of problems, use the chance to compare your project with the tutorial sc
 and look closely at the differences. If you experience significant issues or require
 additional features, please get in touch via e-mail.
 
-
 ## Research
 
 TrafficBench has been developed in the [Networked Embedded Systems Lab](https://nes-lab.org)
 at [TU Dresden](https://tu-dresden.de) and [University of Freiburg](https://uni-freiburg.de/en/).
 Please visit <https://nes-lab.org> to find out more.
 
-
------
+---
 
 **Footnotes**
