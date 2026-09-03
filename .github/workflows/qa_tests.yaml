@@ -13,9 +13,9 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Install dependencies 🔧
         run: sudo apt install cppcheck
         # NOTE: cppcheck is needed for pre-commit
       - name: Run Pre-Commit Tests 🧪
-        uses: j178/prek-action@v2
+        uses: j178/prek-action@v3.0.0
