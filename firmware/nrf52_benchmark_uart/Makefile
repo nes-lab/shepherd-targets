@@ -53,7 +53,7 @@ CFLAGS += -mabi=aapcs
 CFLAGS += -mfloat-abi=hard
 CFLAGS += -mfpu=fpv4-sp-d16
 CFLAGS += -fsingle-precision-constant
-CFLAGS += -DSHEPHERD_BAUDRATE=$(BAUDRATE)
+CFLAGS += -DSHEPHERD_BAUDRATE=${BAUDRATE}
 
 LDFLAGS += ${CFLAGS}
 LDFLAGS += -nostartfiles
