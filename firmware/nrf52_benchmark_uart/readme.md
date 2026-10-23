@@ -31,3 +31,11 @@ The following discrete baudrates can be configured:
 - 460800
 - 921600
 - 1000000
+
+Using a logic analyzer the actual traffic can be determined:
+
+- 115_200 baud -> ~ 72 kSPS
+- 230_400 baud -> ~ 145 kSPS
+- 460_800 baud -> ~ 267 kSPS
+- 921_600 baud -> ~ 450 kSPS
+- 1_000_000 baud -> ~ 500 kSPS
