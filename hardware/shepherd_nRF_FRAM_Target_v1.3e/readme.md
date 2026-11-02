@@ -317,6 +317,7 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
   - mimic V_Sense to allow developing better intermittent algorithms (allows sensing emulated V_harvest or V_storage_cap)
   - needs one additional pin on target connector -> current 40 Pin target-connector has two NC pins left
   - Needs one additional GPIO from Host -> two GPIO available for the analog switch (48, 117) - can be slow sysgpio
+  - protect against overvoltage
 - remove Copper below edge connector (if it stays)
   - the connector should get a chamfer (as it breaks the expensive connector)
   - alternative: switch to FPC or FFC, as it is cheaper
@@ -347,6 +348,10 @@ sudo shepherd-sheep run /etc/shepherd/target_device_test3.yaml
 - move LED away from SMA
 - pin 1 marking bigger on ICs
 - is there a paste-pad under the TS5A?
+- to discuss
+  - cut ties to Riotee and default to reset-pin from DK?
+  - ditch FRAM / MSP? use FM24C64B? <http://www.cypress.com/file/41651/download>
+  - ditch RTC?
 
 TODO:
 
